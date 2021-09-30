@@ -38,7 +38,7 @@ namespace Project_V3
             double[] amplitudes = fourier.getAmplitude(complexNumbers, N);
             double[] frequencies = fourier.getFreq(N, S);
 
-            var objChart = chart1.ChartAreas[0];
+            /*var objChart = chart1.ChartAreas[0];
             objChart.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
            
             //Frequency domain
@@ -50,7 +50,7 @@ namespace Project_V3
             objChart.AxisY.Minimum = 0;
             objChart.AxisY.Maximum = 5;
 
-            chart1.Series[0].Points.Clear();
+            chart1.Series[0].Points.Clear();*/
 
             /*for (int m = 0; m < N - 1; m++)
             {
