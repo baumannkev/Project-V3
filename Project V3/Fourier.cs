@@ -213,5 +213,66 @@ namespace Project_V3
             }
             return amplitude;
         }
+
+        public double[] filtering(double[] s, int N, int S, int[] samples)
+        {
+            int size = (N - 1) / 2;
+            int[] filter = new int[size];
+            double freq = freq * S / N;
+            freq = Math.Round(freq, MidpointRounding.AwayFromZero));
+            int index = 0;
+            while (index <= freq)
+            {
+                filter[index] = 1;
+                index++;
+            }
+            int reIndex = N - 1;
+            int upperBound;
+            if (N % 2 == 0)
+            {
+                upperBound = N / 2;
+            }
+            if (N % 2 == 1)
+            {
+                upperBound = (N - 1) / 2;
+            }
+            while (reIndex >= upperBound)
+            {
+                filter[reIndex] = 1;
+                reIndex--;
+            }
+            while (reIndex > index)
+            {
+                filter[reIndex] = 0;
+                reIndex--;
+            }
+
+            double[] fw = new double[size];
+
+            for (int f = 0; f < size; f++)
+            {
+                s[f] = 0;
+                for (int t = 0; t < size; t++)
+                {
+                    /*s[f] += (A[t].getReal() * Math.Cos(2 * Math.PI * f * t / n)) + (A[t].getImaginary() * Math.Sin(2 * Math.PI * f * t / n));
+                    */
+                    fw[f] += filter[t] * Math.Cos(2 * Math.PI * f * t / size);
+                }
+            }
+
+
+
+            for (int i = 0; i < N - size; i++)
+            {
+                for (int j = 0; j < size; i++)
+                {
+                    s[i] = fw[j] * s[i + j];
+                }
+            }
+
+            return s;
+
+        }
+
     }
 }
