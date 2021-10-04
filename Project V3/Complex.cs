@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project_V3
 {
-    public class Complex
+    public class Complex  
     {
 
         /*Variables:

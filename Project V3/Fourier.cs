@@ -34,7 +34,7 @@ namespace Project_V3
             for (int t = 0; t < N; t++)
             {
                 //Generate the sample
-                samples[t] = amp * Math.Cos(2 * Math.PI * 3 * t / N + (Math.PI / 4)) + amp * Math.Cos(2 * Math.PI * 6 * t / N + (Math.PI / 3));
+                samples[t] = amp * Math.Cos(2 * Math.PI * 50 * t / N + (Math.PI / 4)) + amp * Math.Cos(2 * Math.PI * f * t / N + (Math.PI / 3));
             }
 
             return samples;
