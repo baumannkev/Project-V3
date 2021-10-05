@@ -248,5 +248,77 @@ namespace Project_V3
             for (int i = 0; i < samples; i++)
             { file.Write(data[i]); }
         }
+
+        private void chart2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        double pX; //mouse X pos
+
+        //gets the current position of the mouse
+        private void chart2MousePos(object sender, MouseEventArgs e)
+        {
+            ChartArea chartArea2 = new ChartArea("chartArea2");
+            chart2.ChartAreas.Add(chartArea2);
+            chartArea2.CursorX.SetCursorPixelPosition(new Point(e.X, e.Y), true);
+            pX = chartArea2.CursorX.Position; //mouse pos on X axis
+        }
+
+        bool mousePressed;
+
+        private void onMouseDown(object sender, MouseEventArgs e)
+        {
+            mousePressed = true;
+        }
+
+        private void onMouseUp(object sender, MouseEventArgs e)
+        {
+            mousePressed = false;
+        }
+
+        //gets the frequency of a given index.
+        private double getFreqByX(double x, double[] freq)
+        {
+            return freq[(int)x];
+        }
+
+
+        public int[] onMouseMove(object sender, MouseEventArgs e, double[] freq)
+        {
+            //first click to drag
+            //gets x. we don't need the real y, so we set it to the relavant frequency.
+            chart2MousePos(sender, e);
+            double firstX = pX;
+            double firstY = getFreqByX(firstX, freq);
+            HitTestResult chart2FirstHit = chart2.HitTest((int)firstX, (int)firstY);
+            int firstPointIndex = chart2FirstHit.PointIndex;
+            //while dragging
+            while (mousePressed)
+            {
+                chart2MousePos(sender, e);
+            }
+            double lastX = pX;
+            double lastY = getFreqByX(lastX, freq);
+            HitTestResult chart2LastHit = chart2.HitTest((int)lastX, (int)lastY);
+            int lastPointIndex = chart2LastHit.PointIndex;
+            int[] points = { firstPointIndex, lastPointIndex };
+            return points;
+        }
+
+        //gets the selected points and returns those points in another array.
+        public Point[] selectPoints(int[] indices)
+        {
+            Point[] selectedPoints = new Point[indices[1] - indices[0] + 1];
+            for (int start = indices[0]; start <= indices[1]; start++)
+            {
+                selectedPoints[start - indices[0]].X = (int) chart2.Series["Freq"].Points[start].XValue;
+                selectedPoints[start - indices[0]].Y = (int) chart2.Series["Freq"].Points[start].YValues[0];
+            }
+            return selectedPoints;
+        }
+
+
+
     }
 }
