@@ -84,6 +84,30 @@ namespace Project_V3
             return cmplx;
         }
 
+        public double[] newDFTFunc(double[] s, int n)
+        {
+            double[] amplitude = new double[n];
+            double temp;
+            Complex cmplx;
+            double re; /*real*/
+            double im; /*imaginary*/
+            for (int f = 0; f < n - 1; f++)
+            {
+                re = 0;
+                im = 0;
+                for (int t = 0; t < n - 1; t++)
+                {
+                    re += s[t] * Math.Cos(2 * Math.PI * t * f / n);
+                    im -= s[t] * Math.Sin(2 * Math.PI * t * f / n);
+                }
+                cmplx = new Complex(re, im);
+                temp = (cmplx.getReal() * cmplx.getReal()) + (cmplx.getImaginary() * cmplx.getImaginary());
+                temp = Math.Sqrt(temp);
+                amplitude[f] = temp; // These are the points we are going to plot.
+            }
+            return amplitude;
+        }
+
         /**Method to apply inverse DFT */
         public double[] invDFT(Complex[] A)
         {
@@ -143,23 +167,8 @@ namespace Project_V3
             double divisor;
             double[] phase = new double[n];
             double temp;
-            /* Complex cmplx;
-             double re; //real
-             double im; //imaginary*/
             for (int f = 0; f < n; f++)
             {
-
-                /*re = 0;
-                im = 0;
-                for (int t = 0; t < n - 1; t++)
-                {
-                    re += s[t] * Math.Cos(2 * Math.PI * t * f / n);
-                    im -= s[t] * Math.Sin(2 * Math.PI * t * f / n);
-                }
-                cmplx = new Complex(re, im);*/
-                /*
-                                temp = (cmplx.getReal() * cmplx.getReal()) + (cmplx.getImaginary() * cmplx.getImaginary());
-                */
                 //This is to get the phase
 
                 divisor = s[f].getImaginary() / s[f].getReal();
@@ -191,27 +200,48 @@ namespace Project_V3
         {
             double[] amplitude = new double[n];
             double temp;
-            /*Complex cmplx;
-            double re; //real
-            double im; //imaginary*/
+
             for (int f = 0; f < n; f++)
             {
-                /* re = 0;
-                 im = 0;
-                 for (int t = 0; t < n - 1; t++)
-                 {
-                     re += s[t] * Math.Cos(2 * Math.PI * t * f / n);
-                     im -= s[t] * Math.Sin(2 * Math.PI * t * f / n);
-                 }*/
-                /*cmplx = new Complex(re, im);*/
-                /*
-                                temp = (cmplx.getReal() * cmplx.getReal()) + (cmplx.getImaginary() * cmplx.getImaginary());
-                */
                 //This is to get the amplitude
                 temp = Math.Sqrt(Math.Pow(s[f].getReal(), 2) + Math.Pow(s[f].getImaginary(), 2));
                 amplitude[f] = temp; // These are the points we are going to plot.
             }
             return amplitude;
+        }
+
+        public double[] getAmplitudes(double[] s, int n)
+        {
+            double[] amplitude = new double[n];
+            double temp;
+
+            for (int f = 0; f < n; f++)
+            {
+                //This is to get the amplitude
+                temp = Math.Sqrt(Math.Pow(s[f], 2) + Math.Pow(s[f], 2));
+                amplitude[f] = temp; // These are the points we are going to plot.
+            }
+            return amplitude;
+        }
+
+        private double[] convolve(double[] convolutionData, double[] orgSignal)
+        {
+            
+            int N = orgSignal.Length, WN = convolutionData.Length;
+            double[] newSignal = new double[N];
+            for (int n = 0; n < N; n++)
+            {
+                double temp = 0;
+                for (int wn = 0; wn < WN; wn++)
+                {
+                    if ((n + wn) < (N - 1)) // if we are less than the frequency data size
+                        temp += convolutionData[wn] * orgSignal[n + wn];
+                    else
+                        temp += 0;
+                }
+                newSignal[n] = temp;
+            }
+            return newSignal; // setup the new signal
         }
     }
 }

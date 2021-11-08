@@ -75,6 +75,50 @@ namespace Project_V3
         public int SubChunk2Size;
 
         /*
+            initialize
+            Purpose:
+                Initializes the .wav header information based on what we are
+                inserting into the file. This is used when we 'Add' a new wave
+                to the window. This is never called unless we start a new file.
+            Parameters:
+                sampUpDown: used for calculating SampleRate, ByteRate, 
+                            SubChunk2Size and BitsPerSample
+        */
+        public void initialize(decimal sampUpDown)
+        {
+            clear();
+
+            ChunkID = mmioStringToFOURCC("RIFF", 0);
+            ChunkSize = 0;
+            Format = mmioStringToFOURCC("WAVE", 0);
+            SubChunk1ID = mmioStringToFOURCC("fmt ", 0);
+            SubChunk1Size = 16;
+            AudioFormat = 1;
+            NumChannels = 1; // mono
+            SampleRate = (uint)sampUpDown; // samples per second
+            BitsPerSample = 16; // or 8
+            ByteRate = (uint)(SampleRate * (BitsPerSample / 4)); // bytes per second
+            BlockAlign = (ushort)(BitsPerSample / 8);
+            SubChunk2ID = mmioStringToFOURCC("data", 0);
+            SubChunk2Size = (int)(sampUpDown * BlockAlign);
+
+            ChunkSize = (int)(SubChunk2Size + 44);
+        }
+
+        /*
+           init
+           Purpose:
+               Initializes the ID's for the current object.
+       */
+        public void init()
+        {
+            ChunkID = mmioStringToFOURCC("RIFF", 0);
+            Format = mmioStringToFOURCC("WAVE", 0);
+            SubChunk1ID = mmioStringToFOURCC("fmt ", 0);
+            SubChunk2ID = mmioStringToFOURCC("data", 0);
+        }
+
+        /*
             clear
             Purpose:
                 Used to clear the wave_file_header object information. This is 
@@ -96,6 +140,34 @@ namespace Project_V3
             BitsPerSample = 0;
             SubChunk2ID = 0;
             SubChunk2Size = 0;
+        }
+
+        /*
+           updateSampleRate
+           Purpose:
+               Updates the sample rate of the current header object.
+           Parameters:
+               newSampRate This is the new sample rate to set the header data
+                           to
+       */
+        public void updateSampleRate(uint newSampRate)
+        {
+            SampleRate = newSampRate;
+            ByteRate = (uint)(SampleRate * (BitsPerSample / 8));
+        }
+
+        /*
+          updateSubChunk2
+          Purpose:
+              This adds the value of newSubChunkSize to that of the old size.
+          Parameters:
+              added   Size of data that is to be added to the SubChunk2Size
+                      and chunk size
+      */
+        public void updateSubChunk2(int added)
+        {
+            SubChunk2Size = added;
+            ChunkSize = SubChunk2Size + 44;
         }
     }
 }
