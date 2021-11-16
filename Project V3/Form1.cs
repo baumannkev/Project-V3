@@ -33,6 +33,14 @@ namespace Project_V3
         Fourier fourier = new Fourier();
 
         /*
+           threads
+           This is the number of threads specified by the user to run the DFT
+           function with.
+           Defualted to 1.
+       */
+        private int threads = 1;
+
+        /*
             globalWavHead
             Class object for the .wav file header. This is used for the
             current file int the window.
@@ -99,9 +107,20 @@ namespace Project_V3
         amplitude data to be used in the chart.
         */
         private double[] globalAmp; // amplitude of wave
+
+        /*
+            globalWindowing
+            Class object for a windowing algorithm. This will allow one to 
+            window the selection for processing. Example being filtering. If
+            the user would like to remove just a frequency from a certain point
+            in the signal, they may select a portion to filter.
+        */
+        public Windows globalWindowing = new Windows();
+
         public Form1()
         {
             InitializeComponent();
+            filterAudio.Enabled = false; // Cannot use until we have plotted the frequency domain chart
             globalWavHead.initialize((uint)sampUpDown.Value);
             this.panel4.BorderStyle = BorderStyle.None;
             this.panel4.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panel1.Width, panel4.Height, 20, 20));
@@ -131,7 +150,7 @@ namespace Project_V3
             chart2.Series[0].Points.Clear(); // clears the data in the wave form chart
             // Plots the wave data
             plotFreqWaveChart(globalFreq);
-            //playButton.Enabled = true;
+            btnPlay.Enabled = true;
         }
 
         public double[] readingWave(String fileName)
@@ -168,9 +187,12 @@ namespace Project_V3
         {
             chart2.Series[0].Points.Clear();
             for (int m = 0; m < freq.Length; m++)
-            { chart2.Series[0].Points.AddXY(m, freq[m]); }
+            { 
+                chart2.Series[0].Points.AddXY(m, freq[m]);
+            }
             lengthOfData.Value = freq.Length;
             chart2.ChartAreas[0].AxisX.Minimum = 0;
+
             /* Fourier fourier = new Fourier();
 
              lengthOfData.Value = freq.Length;
@@ -295,6 +317,7 @@ namespace Project_V3
         */
         public void plotHFTWaveChart()
         {
+           /* this.Text += " - Plotting Data...";
             int selection = (int)(globalChartSelection.getEnd() - globalChartSelection.getStart());
             int start = (int)(globalChartSelection.getStart());
             double[] copiedFreq = globalFreq;
@@ -302,12 +325,72 @@ namespace Project_V3
             // This is incase the user selects a new point.
             globalWindowedSelection.setStart(globalChartSelection.getStart());
             globalWindowedSelection.setEnd(globalChartSelection.getEnd());
-            globalAmp = fourier.newDFTFunc(copiedFreq, selection);
+            //globalAmp = fourier.newDFTFunc(copiedFreq, selection);
+            globalAmp = fourier.threadDFTFunc(copiedFreq, selection, threads);
             //globalAmp = fourier.getAmplitudes(copiedFreq, selection);
             chart1.Series[0].Points.Clear();
             for (int i = 0; i < globalAmp.Length; i++)
             { chart1.Series["DFT"].Points.AddXY(i, globalAmp[i]); }
-            //filterAudioToolStripMenuItem.Enabled = true;
+            filterAudio.Enabled = true;
+            chart1.ChartAreas[0].AxisX.Minimum = 0;
+            filterAudio.Enabled = true;
+            this.Text = globalFilePath;
+            this.Text += "*";*/
+
+            int selection = (int)(globalChartSelection.getEnd() - globalChartSelection.getStart());
+            int start = (int)(globalChartSelection.getStart());
+            // Save the points for the windowed data
+            // This is incase the user selects a new point.
+            globalWindowedSelection.setStart(globalChartSelection.getStart());
+            globalWindowedSelection.setEnd(globalChartSelection.getEnd());
+            double[] copiedFreq = globalFreq;
+            globalWindowing.Triangle(copiedFreq, selection, start); // Default
+            globalAmp = fourier.threadDFTFunc(copiedFreq, selection, threads);
+            chart1.Series[0].Points.Clear();
+            for (int i = 0; i < globalAmp.Length; i++)
+            { chart1.Series["DFT"].Points.AddXY(i, globalAmp[i]); }
+            filterAudio.Enabled = true;
+            chart1.ChartAreas[0].AxisX.Minimum = 0;
+        }
+
+        /*
+            plotHFTWaveChart
+            Purpose:
+                Plots the frequency domain chart based on the seleciton of the
+                user on the time domain. This will check to see if the
+                selection from the user is greater than half of the maximum 
+                sample size, and if so will minimize the amount of data the 
+                function will plot.  
+            Parameters:
+                              
+        */
+        public void plotHFTWaveChart(String windowType)
+        {
+            int selection = (int)(globalChartSelection.getEnd() - globalChartSelection.getStart());
+            int start = (int)(globalChartSelection.getStart());
+            double[] copiedFreq = globalFreq;
+            // Save the points for the windowed data
+            // This is incase the user selects a new point.
+            globalWindowedSelection.setStart(globalChartSelection.getStart());
+            globalWindowedSelection.setEnd(globalChartSelection.getEnd());
+            if (String.Compare(windowType, "Triangle") == 0)
+            {
+                globalWindowing.Triangle(copiedFreq, selection, start);
+            }
+            else if (String.Compare(windowType, "Rectangle") == 0)
+            {
+                globalWindowing.Rectangle(copiedFreq, selection, start);
+            }
+            else if (String.Compare(windowType, "Welch") == 0)
+            {
+                globalWindowing.Welch(copiedFreq, selection, start);
+            }
+            //globalAmp = DFT.newDFTFunc(copiedFreq, selection);
+            globalAmp = fourier.threadDFTFunc(globalFreq, selection, threads);
+            chart1.Series[0].Points.Clear();
+            for (int i = 0; i < globalAmp.Length; i++)
+            { chart1.Series["DFT"].Points.AddXY(i, globalAmp[i]); }
+            filterAudio.Enabled = true;
             chart1.ChartAreas[0].AxisX.Minimum = 0;
         }
 
@@ -463,9 +546,105 @@ namespace Project_V3
             }
         }
 
+        /*
+           creationOfLowpassFilter
+           Purpose:
+               This will create an array of values for a lowpass filter.
+               This function uses the frequency chart start selection, stored
+               in globalHFTChartSelection object. The function will then
+               create an array of complex 1's and 0's. The complex one's are
+               everything from 0 - start (selection). That is, at the Nyquist 
+               limit, half of the signal array, the data is mirrored, and 
+               therefore the complex 1's and 0's are then mirrored.
+           Parameters:
+               frequencySize:  Size of the frequency data array that we are
+                               preforming the lowpass filter on.
+       */
+        private Complex[] creationOfLowpassFilter(double[] frequencySize)
+        {
+            int N = frequencySize.Length; // amplitude displayed on DFT chart
+            Complex[] outComplex = new Complex[N];
+            double start = globalHFTChartSelection.getStart();
+
+            // create a complex numbers for the selected size, otherwise it is complex zero
+            for (int i = 0; i < (N / 2); i++)
+            {
+                if (N % 2 != 0)
+                {
+                    outComplex[N / 2] = new Complex(0, 0);
+                }
+                if (i < start)
+                {
+                    outComplex[i] = new Complex(1, 1);
+                    outComplex[N - i - 1] = new Complex(1, 1);
+                }
+                else
+                {
+                    outComplex[i] = new Complex(0, 0);
+                    outComplex[N - i - 1] = new Complex(0, 0);
+                }
+            }
+            return outComplex;
+        }
+
+        /*
+            convolve
+            Purpose:
+                After we have inverse DFTed the data taken from the filter
+                creation, we now convolve the data with that of the signal we
+                are filtering. This is to be thought of as a train. As the 
+                train travels, along the track, the carts are times by
+                that of the data signal. When we run out of cars to data, we
+                move the train by 1, and start again. Thus the train is run
+                through all the data. If we to not have an equal number of
+                cars to data, we must choose to either pad with 0's or no.
+            Parameters:
+                convolutionData:    Data gathered after performing inverse DFT
+                                    on the filter to gain weights.
+                orgSignal:          Original signal we plan to filter on.
+        */
+        private void convolve(double[] convolutionData, double[] orgSignal)
+        {
+            int N = orgSignal.Length, WN = convolutionData.Length;
+            double[] newSignal = new double[N];
+            for (int n = 0; n < N; n++)
+            {
+                double temp = 0;
+                for (int wn = 0; wn < WN; wn++)
+                {
+                    if ((n + wn) < (N - 1)) // if we are less than the frequency data size
+                        temp += convolutionData[wn] * orgSignal[n + wn];
+                    else
+                        temp += 0;
+                }
+                newSignal[n] = temp;
+            }
+            globalFreq = newSignal; // setup the new signal
+        }
+
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+        /*
+            filterAudio_Click
+            Purpose:
+                Button to call the functions to create the filter. After one
+                has selected the filter point on the frequency domain chart,
+                we can now create a lowpass filter. This function will call
+                creationOfLowpassFilter, convolve and inverse DFT.
+        */
+        private void filterAudio_Click(object sender, EventArgs e)
+        {
+            // This is where we will filter
+            // get the selection of the frequency to filter from the audio file
+            this.Text += " - Filtering...";
+            Complex[] filter = creationOfLowpassFilter(globalAmp);
+            convolve(fourier.invDFT(filter, filter.Length), globalFreq);
+            plotFreqWaveChart(globalFreq);
+            plotHFTWaveChart();
+            this.Text = globalFilePath;
+            this.Text += "*";
         }
 
         private void btnZoom_Click(object sender, EventArgs e)
@@ -536,7 +715,7 @@ namespace Project_V3
             // this should just update the header information
             WaveFileHeader tempHeader = handler.getHeader(); // we want to just get the size
                                                                // of the data recorded
-                                                               // I want 1 byte to 1 double
+                                                               // We want 1 byte to 1 double
             globalWavHead.updateSampleRate(tempHeader.SampleRate);
 
             short[] shortAr = new short[temp.Length / globalWavHead.BlockAlign];
@@ -620,6 +799,41 @@ namespace Project_V3
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        /*
+            hammingWindowToolStripMenuItem_Click
+            Purpose:
+                Button to call to plot hamming window.
+        */
+        private void welchWindowBtn_Click(object sender, EventArgs e)
+        {
+            plotHFTWaveChart("Welch");
+        }
+
+        /*
+            plotAmplitudeToolStripMenuItem_Click
+            Purpose:
+                Button to call to plot triangle window.
+        */
+        private void triangleWindowBtn_Click(object sender, EventArgs e)
+        {
+            plotHFTWaveChart("Triangle");
+        }
+
+        /*
+            rectangleWindowToolStripMenuItem_Click
+            Purpose:
+                Button to call to plot rectangle window.
+        */
+        private void rectWindowBtn_Click(object sender, EventArgs e)
+        {
+            plotHFTWaveChart("Rectangle");
         }
     }
 }
