@@ -30,6 +30,10 @@ namespace Project_V3
         int nHeightEllipse
     );
 
+
+
+
+
         Fourier fourier = new Fourier();
 
         /*
@@ -122,16 +126,48 @@ namespace Project_V3
             InitializeComponent();
             filterAudio.Enabled = false; // Cannot use until we have plotted the frequency domain chart
             globalWavHead.initialize((uint)sampUpDown.Value);
-            this.panel4.BorderStyle = BorderStyle.None;
-            this.panel4.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panel1.Width, panel4.Height, 20, 20));
+            this.panelSamples.BorderStyle = BorderStyle.None;
+            this.panelSamples.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelSamples.Width, panelSamples.Height, 20, 20));
 
-            this.panel3.BorderStyle = BorderStyle.None;
-            this.panel3.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panel3.Width, panel3.Height, 20, 20));
+            this.panelDFT.BorderStyle = BorderStyle.None;
+            this.panelDFT.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelDFT.Width, panelDFT.Height, 20, 20));
 
-            this.panel5.BorderStyle = BorderStyle.None;
-            this.panel5.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panel5.Width, panel5.Height, 20, 20));
+            this.panelFreq.BorderStyle = BorderStyle.None;
+            this.panelFreq.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelFreq.Width, panelFreq.Height, 20, 20));
             // Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 1, 1));
+            customizeDesign();
 
+        }
+
+        private void customizeDesign()
+        {
+            panelMedia.Visible = false;
+            panelView.Visible = false;
+            panelWindows.Visible = false;
+            panelData.Visible = false;
+        }
+
+        private void hideSubMenu()
+        {
+            if (panelMedia.Visible == true)
+                panelMedia.Visible = false;
+            if (panelView.Visible == true)
+                panelView.Visible = false;
+            if (panelWindows.Visible == true)
+                panelWindows.Visible = false;
+            if (panelData.Visible == true)
+                panelData.Visible = false;
+        }
+
+        private void showSubMenu(Panel submenu)
+        {
+            if (submenu.Visible == false)
+            {
+                hideSubMenu();
+                submenu.Visible = true;
+            }
+            else
+                submenu.Visible = false;
         }
 
         // HAVE TO FIX *****N******* 
@@ -626,16 +662,82 @@ namespace Project_V3
         {
 
         }
+        #region ViewSubMenu
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            showSubMenu(panelView);
+            pnlNav.Height = btnView.Height;
+            pnlNav.Top = btnView.Top;
+            pnlNav.Left = btnView.Left;
+            btnView.BackColor = Color.FromArgb(46, 51, 73);
+        }
+
+        private void btnZoom_Click(object sender, EventArgs e)
+        {
+            pnlNav.Height = btnView.Height;
+            pnlNav.Top = btnView.Top;
+            pnlNav.Left = btnView.Left;
+            btnView.BackColor = Color.FromArgb(46, 51, 73);
+            // Turns on chart zooming
+            /*chart1.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+            chart2.ChartAreas[0].AxisX.ScaleView.Zoomable = true;*/
+            chart2.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+            chart1.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+        }
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            pnlNav.Height = btnView.Height;
+            pnlNav.Top = btnView.Top;
+            pnlNav.Left = btnView.Left;
+            btnView.BackColor = Color.FromArgb(46, 51, 73);
+            // Turns off chart zooming
+            chart2.ChartAreas[0].AxisX.ScaleView.Zoomable = false;
+            chart1.ChartAreas[0].AxisX.ScaleView.Zoomable = false;
+        }
+        #endregion
+        #region DataSubMenu
+        private void btnData_Click(object sender, EventArgs e)
+        {
+            showSubMenu(panelData);
+            pnlNav.Height = btnData.Height;
+            pnlNav.Top = btnData.Top;
+            pnlNav.Left = btnData.Left;
+            btnData.BackColor = Color.FromArgb(46, 51, 73);
+        }
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            pnlNav.Height = btnData.Height;
+            pnlNav.Top = btnData.Top;
+            pnlNav.Left = btnData.Left;
+            btnData.BackColor = Color.FromArgb(46, 51, 73);
+            globalFreq = new double[1];
+            plotFreqWaveChart(globalFreq);
+            lengthOfData.Value = globalFreq.Length;
+            chart2.ChartAreas[0].AxisX.Minimum = 0;
+        }
+
+        private void btnDFT_Click(object sender, EventArgs e)
+        {
+            pnlNav.Height = btnData.Height;
+            pnlNav.Top = btnData.Top;
+            pnlNav.Left = btnData.Left;
+            btnData.BackColor = Color.FromArgb(46, 51, 73);
+            plotHFTWaveChart();
+        }
         /*
-            filterAudio_Click
-            Purpose:
-                Button to call the functions to create the filter. After one
-                has selected the filter point on the frequency domain chart,
-                we can now create a lowpass filter. This function will call
-                creationOfLowpassFilter, convolve and inverse DFT.
-        */
+           filterAudio_Click
+           Purpose:
+               Button to call the functions to create the filter. After one
+               has selected the filter point on the frequency domain chart,
+               we can now create a lowpass filter. This function will call
+               creationOfLowpassFilter, convolve and inverse DFT.
+       */
         private void filterAudio_Click(object sender, EventArgs e)
         {
+            pnlNav.Height = btnData.Height;
+            pnlNav.Top = btnData.Top;
+            pnlNav.Left = btnData.Left;
+            btnData.BackColor = Color.FromArgb(46, 51, 73);
             // This is where we will filter
             // get the selection of the frequency to filter from the audio file
             this.Text += " - Filtering...";
@@ -646,56 +748,22 @@ namespace Project_V3
             this.Text = globalFilePath;
             this.Text += "*";
         }
-
-        private void btnZoom_Click(object sender, EventArgs e)
+        #endregion
+        #region MediaSubMenu
+        private void btnMedia_Click(object sender, EventArgs e)
         {
-            pnlNav.Height = btnZoom.Height;
-            pnlNav.Top = btnZoom.Top;
-            pnlNav.Left = btnZoom.Left;
-            btnZoom.BackColor = Color.FromArgb(46, 51, 73);
-            // Turns on chart zooming
-            /*chart1.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
-            chart2.ChartAreas[0].AxisX.ScaleView.Zoomable = true;*/
-            chart2.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
-            chart1.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+            showSubMenu(panelMedia);
+            pnlNav.Height = btnMedia.Height;
+            pnlNav.Top = btnMedia.Top;
+            pnlNav.Left = btnMedia.Left;
+            btnMedia.BackColor = Color.FromArgb(46, 51, 73);
         }
-        private void btnSelect_Click(object sender, EventArgs e)
-        {
-            pnlNav.Height = btnSelect.Height;
-            pnlNav.Top = btnSelect.Top;
-            pnlNav.Left = btnSelect.Left;
-            btnSelect.BackColor = Color.FromArgb(46, 51, 73);
-            // Turns off chart zooming
-            chart2.ChartAreas[0].AxisX.ScaleView.Zoomable = false;
-            chart1.ChartAreas[0].AxisX.ScaleView.Zoomable = false;
-        }
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            pnlNav.Height = btnClear.Height;
-            pnlNav.Top = btnClear.Top;
-            pnlNav.Left = btnClear.Left;
-            btnClear.BackColor = Color.FromArgb(46, 51, 73);
-            globalFreq = new double[1];
-            plotFreqWaveChart(globalFreq);
-            lengthOfData.Value = globalFreq.Length;
-            chart2.ChartAreas[0].AxisX.Minimum = 0;
-        }
-
-        private void btnDFT_Click(object sender, EventArgs e)
-        {
-            pnlNav.Height = btnDFT.Height;
-            pnlNav.Top = btnDFT.Top;
-            pnlNav.Left = btnDFT.Left;
-            btnDFT.BackColor = Color.FromArgb(46, 51, 73);
-            plotHFTWaveChart();
-        }
-
         private void btnRec_Click(object sender, EventArgs e)
         {
-            pnlNav.Height = btnRec.Height;
-            pnlNav.Top = btnRec.Top;
-            pnlNav.Left = btnRec.Left;
-            btnRec.BackColor = Color.FromArgb(46, 51, 73);
+            pnlNav.Height = btnMedia.Height;
+            pnlNav.Top = btnMedia.Top;
+            pnlNav.Left = btnMedia.Left;
+            btnMedia.BackColor = Color.FromArgb(46, 51, 73);
             btnStopRec.Enabled = true;
             btnRec.Enabled = false;
             btnStopRec.Enabled = true;
@@ -705,10 +773,10 @@ namespace Project_V3
 
         private void btnStopRec_Click(object sender, EventArgs e)
         {
-            pnlNav.Height = btnStopRec.Height;
-            pnlNav.Top = btnStopRec.Top;
-            pnlNav.Left = btnStopRec.Left;
-            btnStopRec.BackColor = Color.FromArgb(46, 51, 73);
+            pnlNav.Height = btnMedia.Height;
+            pnlNav.Top = btnMedia.Top;
+            pnlNav.Left = btnMedia.Left;
+            btnMedia.BackColor = Color.FromArgb(46, 51, 73);
 
             byte[] temp = handler.stop();
             // get the header and set it to the global wav header
@@ -731,10 +799,10 @@ namespace Project_V3
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            pnlNav.Height = btnPlay.Height;
-            pnlNav.Top = btnPlay.Top;
-            pnlNav.Left = btnPlay.Left;
-            btnPlay.BackColor = Color.FromArgb(46, 51, 73);
+            pnlNav.Height = btnMedia.Height;
+            pnlNav.Top = btnMedia.Top;
+            pnlNav.Left = btnMedia.Left;
+            btnMedia.BackColor = Color.FromArgb(46, 51, 73);
             // Plays at the current sample rate defined by user control
             handler.play(globalFreq, globalWavHead);
             btnRec.Enabled = true;
@@ -748,64 +816,16 @@ namespace Project_V3
             pnlNav.Left = btnPause.Left;
             btnPause.BackColor = Color.FromArgb(46, 51, 73);
         }
-       
-        private void btnZoom_Leave(object sender, EventArgs e)
+        #endregion
+        #region WindowsSubMenu
+        private void btnWindow_Click(object sender, EventArgs e)
         {
-            btnZoom.BackColor = Color.FromArgb(24, 30, 54);
+            showSubMenu(panelWindows);
+            pnlNav.Height = btnWindow.Height;
+            pnlNav.Top = btnWindow.Top;
+            pnlNav.Left = btnWindow.Left;
+            btnWindow.BackColor = Color.FromArgb(46, 51, 73);
         }
-        private void btnSelect_Leave(object sender, EventArgs e)
-        {
-            btnSelect.BackColor = Color.FromArgb(24, 30, 54);
-        }
-        private void btnClear_Leave(object sender, EventArgs e)
-        {
-            btnClear.BackColor = Color.FromArgb(24, 30, 54);
-        }
-        private void btnDFT_Leave(object sender, EventArgs e)
-        {
-            btnDFT.BackColor = Color.FromArgb(24, 30, 54);
-        }
-
-        private void btnRec_Leave(object sender, EventArgs e)
-        {
-            btnRec.BackColor = Color.FromArgb(24, 30, 54);
-        }
-
-        private void btnStopRec_Leave(object sender, EventArgs e)
-        {
-            btnStopRec.BackColor = Color.FromArgb(24, 30, 54);
-        }
-
-        private void btnPlay_Leave(object sender, EventArgs e)
-        {
-            btnPlay.BackColor = Color.FromArgb(24, 30, 54);
-        }
-
-        private void btnPause_Leave(object sender, EventArgs e)
-        {
-            btnPause.BackColor = Color.FromArgb(24, 30, 54);
-        }
-
-        private void panel4_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void sampleLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         /*
             hammingWindowToolStripMenuItem_Click
             Purpose:
@@ -834,6 +854,81 @@ namespace Project_V3
         private void rectWindowBtn_Click(object sender, EventArgs e)
         {
             plotHFTWaveChart("Rectangle");
+        }
+        #endregion
+        #region LeaveEvents
+        private void btnView_Leave(object sender, EventArgs e)
+        {
+             btnView.BackColor = Color.FromArgb(37, 42, 64);
+        }
+        private void btnData_Leave(object sender, EventArgs e)
+        {
+            btnData.BackColor = Color.FromArgb(37, 42, 64);
+        }
+        private void btnMedia_Leave(object sender, EventArgs e)
+        {
+            btnMedia.BackColor = Color.FromArgb(37, 42, 64);
+        }
+        private void btnWindow_Leave(object sender, EventArgs e)
+        {
+            btnWindow.BackColor = Color.FromArgb(37, 42, 64);
+        }
+        private void btnZoom_Leave(object sender, EventArgs e)
+        {
+           // btnZoom.BackColor = Color.FromArgb(24, 30, 54);
+        }
+        private void btnSelect_Leave(object sender, EventArgs e)
+        {
+            // btnSelect.BackColor = Color.FromArgb(24, 30, 54);
+        }
+        private void btnClear_Leave(object sender, EventArgs e)
+        {
+            //btnClear.BackColor = Color.FromArgb(24, 30, 54);
+        }
+        private void btnDFT_Leave(object sender, EventArgs e)
+        {
+            //btnDFT.BackColor = Color.FromArgb(24, 30, 54);
+        }
+
+        private void btnRec_Leave(object sender, EventArgs e)
+        {
+            //btnRec.BackColor = Color.FromArgb(24, 30, 54);
+        }
+
+        private void btnStopRec_Leave(object sender, EventArgs e)
+        {
+            //btnStopRec.BackColor = Color.FromArgb(24, 30, 54);
+        }
+
+        private void btnPlay_Leave(object sender, EventArgs e)
+        {
+            //btnPlay.BackColor = Color.FromArgb(24, 30, 54);
+        }
+
+        private void btnPause_Leave(object sender, EventArgs e)
+        {
+            //btnPause.BackColor = Color.FromArgb(24, 30, 54);
+        }
+        #endregion
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void sampleLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -100,5 +100,10 @@
   <ItemGroup>
     <None Include="Resources\wave.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="wave.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
