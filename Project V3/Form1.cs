@@ -124,8 +124,9 @@ namespace Project_V3
         public Form1()
         {
             InitializeComponent();
-            filterAudio.Enabled = false; // Cannot use until we have plotted the frequency domain chart
             globalWavHead.initialize((uint)sampUpDown.Value);
+            
+            filterAudio.Enabled = false; // Cannot use until we have plotted the frequency domain chart
             this.panelSamples.BorderStyle = BorderStyle.None;
             this.panelSamples.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelSamples.Width, panelSamples.Height, 20, 20));
 
@@ -774,7 +775,7 @@ namespace Project_V3
         }
         private void btnRec_Click(object sender, EventArgs e)
         {
-
+            sampUpDown.Value = 22050;
             pnlNav.Height = btnMedia.Height;
             pnlNav.Top = btnMedia.Top;
             pnlNav.Left = btnMedia.Left;
@@ -950,7 +951,6 @@ namespace Project_V3
         {
             sampUpDown.Value = 44100;
             globalWavHead.updateSampleRate((uint)sampUpDown.Value);
-            plotFreqWaveChart(globalFreq);
             this.Text += "*";
         }
         #endregion
