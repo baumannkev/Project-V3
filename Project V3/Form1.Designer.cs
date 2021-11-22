@@ -56,6 +56,16 @@ namespace Project_V3
             this.welchWindowBtn = new System.Windows.Forms.Button();
             this.panelWindows = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panelThreads = new System.Windows.Forms.Panel();
+            this.btnThread4 = new System.Windows.Forms.Button();
+            this.btnThread3 = new System.Windows.Forms.Button();
+            this.btnThread2 = new System.Windows.Forms.Button();
+            this.btnThread1 = new System.Windows.Forms.Button();
+            this.btnThreads = new System.Windows.Forms.Button();
+            this.panelEdit = new System.Windows.Forms.Panel();
+            this.btnMaxAmp = new System.Windows.Forms.Button();
+            this.btnReverse = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
             this.pnlNav = new System.Windows.Forms.Panel();
             this.btnWindow = new System.Windows.Forms.Button();
             this.panelMedia = new System.Windows.Forms.Panel();
@@ -73,6 +83,12 @@ namespace Project_V3
             this.btnZoom = new System.Windows.Forms.Button();
             this.btnSelect = new System.Windows.Forms.Button();
             this.btnView = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnSampleRate = new System.Windows.Forms.Button();
+            this.panelSampleRate = new System.Windows.Forms.Panel();
+            this.btn44100 = new System.Windows.Forms.Button();
+            this.btn22050 = new System.Windows.Forms.Button();
+            this.btn11025 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.panelDFT.SuspendLayout();
@@ -83,16 +99,17 @@ namespace Project_V3
             this.panelFreq.SuspendLayout();
             this.panelWindows.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panelThreads.SuspendLayout();
+            this.panelEdit.SuspendLayout();
             this.panelMedia.SuspendLayout();
             this.panelData.SuspendLayout();
             this.panelView.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panelSampleRate.SuspendLayout();
             this.SuspendLayout();
             // 
             // chart1
             // 
-            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BackImage = "https://ak.picdn.net/shutterstock/videos/1018878754/thumb/1.jpg";
             this.chart1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Center;
@@ -101,17 +118,23 @@ namespace Project_V3
             chartArea1.AxisX.LineColor = System.Drawing.Color.WhiteSmoke;
             chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.White;
             chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX.MinorTickMark.Enabled = true;
+            chartArea1.AxisX.MinorTickMark.LineColor = System.Drawing.Color.White;
             chartArea1.AxisX.ScaleView.SmallScrollSizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
             chartArea1.AxisX.ScaleView.Zoomable = false;
             chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
             chartArea1.AxisY.LineColor = System.Drawing.Color.White;
             chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.White;
             chartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY.MinorTickMark.Enabled = true;
+            chartArea1.AxisY.MinorTickMark.LineColor = System.Drawing.Color.White;
             chartArea1.BackColor = System.Drawing.Color.Transparent;
             chartArea1.CursorX.IsUserEnabled = true;
             chartArea1.CursorX.IsUserSelectionEnabled = true;
+            chartArea1.CursorX.LineColor = System.Drawing.Color.Green;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
             legend1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
             legend1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(146)))), ((int)(((byte)(249)))));
             legend1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
@@ -120,8 +143,7 @@ namespace Project_V3
             legend1.ItemColumnSeparatorColor = System.Drawing.Color.Maroon;
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(62, 24);
-            this.chart1.Margin = new System.Windows.Forms.Padding(2);
+            this.chart1.Location = new System.Drawing.Point(15, 15);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             this.chart1.PaletteCustomColors = new System.Drawing.Color[] {
@@ -130,16 +152,13 @@ namespace Project_V3
             series1.Legend = "Legend1";
             series1.Name = "DFT";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(949, 311);
+            this.chart1.Size = new System.Drawing.Size(1042, 424);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart";
             this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
             // chart2
             // 
-            this.chart2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.chart2.BackColor = System.Drawing.Color.Transparent;
             this.chart2.BackImage = "https://ak.picdn.net/shutterstock/videos/1018878754/thumb/1.jpg";
             this.chart2.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Bottom;
@@ -150,6 +169,7 @@ namespace Project_V3
             chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.WhiteSmoke;
             chartArea2.AxisX.MajorTickMark.LineColor = System.Drawing.Color.WhiteSmoke;
             chartArea2.AxisX.MinorGrid.LineColor = System.Drawing.Color.WhiteSmoke;
+            chartArea2.AxisX.MinorTickMark.Enabled = true;
             chartArea2.AxisX.MinorTickMark.LineColor = System.Drawing.Color.WhiteSmoke;
             chartArea2.AxisX.ScaleView.SmallScrollSizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
             chartArea2.AxisX.ScaleView.Zoomable = false;
@@ -157,12 +177,16 @@ namespace Project_V3
             chartArea2.AxisY.LineColor = System.Drawing.Color.Snow;
             chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.Snow;
             chartArea2.AxisY.MajorTickMark.LineColor = System.Drawing.Color.WhiteSmoke;
+            chartArea2.AxisY.MinorTickMark.Enabled = true;
+            chartArea2.AxisY.MinorTickMark.LineColor = System.Drawing.Color.White;
             chartArea2.BackColor = System.Drawing.Color.Transparent;
             chartArea2.BorderWidth = 10;
             chartArea2.CursorX.IsUserEnabled = true;
             chartArea2.CursorX.IsUserSelectionEnabled = true;
+            chartArea2.CursorX.LineColor = System.Drawing.Color.Green;
             chartArea2.Name = "ChartArea1";
             this.chart2.ChartAreas.Add(chartArea2);
+            this.chart2.Dock = System.Windows.Forms.DockStyle.Fill;
             legend2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
             legend2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(146)))), ((int)(((byte)(249)))));
             legend2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
@@ -171,8 +195,7 @@ namespace Project_V3
             legend2.ItemColumnSeparatorColor = System.Drawing.Color.Maroon;
             legend2.Name = "Legend1";
             this.chart2.Legends.Add(legend2);
-            this.chart2.Location = new System.Drawing.Point(62, 21);
-            this.chart2.Margin = new System.Windows.Forms.Padding(2);
+            this.chart2.Location = new System.Drawing.Point(15, 15);
             this.chart2.Name = "chart2";
             this.chart2.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             this.chart2.PaletteCustomColors = new System.Drawing.Color[] {
@@ -182,7 +205,7 @@ namespace Project_V3
             series2.Legend = "Legend1";
             series2.Name = "Freq";
             this.chart2.Series.Add(series2);
-            this.chart2.Size = new System.Drawing.Size(949, 322);
+            this.chart2.Size = new System.Drawing.Size(1045, 425);
             this.chart2.TabIndex = 4;
             this.chart2.Text = "chart2";
             this.chart2.Click += new System.EventHandler(this.chart2_Click);
@@ -199,9 +222,8 @@ namespace Project_V3
             this.lengthTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lengthTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(146)))), ((int)(((byte)(249)))));
             this.lengthTitle.Location = new System.Drawing.Point(0, 0);
-            this.lengthTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lengthTitle.Name = "lengthTitle";
-            this.lengthTitle.Size = new System.Drawing.Size(108, 29);
+            this.lengthTitle.Size = new System.Drawing.Size(157, 40);
             this.lengthTitle.TabIndex = 10;
             this.lengthTitle.Text = "Samples";
             this.lengthTitle.Click += new System.EventHandler(this.sampleLabel_Click);
@@ -212,24 +234,23 @@ namespace Project_V3
             this.startLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.startLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(146)))), ((int)(((byte)(249)))));
-            this.startLabel.Location = new System.Drawing.Point(0, 150);
-            this.startLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.startLabel.Location = new System.Drawing.Point(0, 240);
             this.startLabel.Name = "startLabel";
-            this.startLabel.Size = new System.Drawing.Size(62, 29);
+            this.startLabel.Size = new System.Drawing.Size(93, 40);
             this.startLabel.TabIndex = 12;
             this.startLabel.Text = "Start";
             // 
             // panelDFT
             // 
             this.panelDFT.AutoScroll = true;
+            this.panelDFT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panelDFT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
             this.panelDFT.Controls.Add(this.chart1);
-            this.panelDFT.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelDFT.Location = new System.Drawing.Point(265, 405);
-            this.panelDFT.Margin = new System.Windows.Forms.Padding(2);
+            this.panelDFT.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelDFT.Location = new System.Drawing.Point(3, 476);
             this.panelDFT.Name = "panelDFT";
-            this.panelDFT.Padding = new System.Windows.Forms.Padding(10);
-            this.panelDFT.Size = new System.Drawing.Size(1045, 356);
+            this.panelDFT.Padding = new System.Windows.Forms.Padding(15);
+            this.panelDFT.Size = new System.Drawing.Size(1072, 454);
             this.panelDFT.TabIndex = 14;
             // 
             // panelSamples
@@ -237,10 +258,9 @@ namespace Project_V3
             this.panelSamples.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
             this.panelSamples.Controls.Add(this.panel1);
             this.panelSamples.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelSamples.Location = new System.Drawing.Point(1310, 0);
-            this.panelSamples.Margin = new System.Windows.Forms.Padding(2);
+            this.panelSamples.Location = new System.Drawing.Point(2196, 0);
             this.panelSamples.Name = "panelSamples";
-            this.panelSamples.Size = new System.Drawing.Size(161, 761);
+            this.panelSamples.Size = new System.Drawing.Size(242, 1913);
             this.panelSamples.TabIndex = 15;
             this.panelSamples.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
@@ -254,8 +274,9 @@ namespace Project_V3
             this.panel1.Controls.Add(this.lengthTitle);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(161, 208);
+            this.panel1.Size = new System.Drawing.Size(242, 320);
             this.panel1.TabIndex = 14;
             // 
             // endLabel
@@ -264,10 +285,9 @@ namespace Project_V3
             this.endLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.endLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.endLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(146)))), ((int)(((byte)(249)))));
-            this.endLabel.Location = new System.Drawing.Point(0, 179);
-            this.endLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.endLabel.Location = new System.Drawing.Point(0, 280);
             this.endLabel.Name = "endLabel";
-            this.endLabel.Size = new System.Drawing.Size(56, 29);
+            this.endLabel.Size = new System.Drawing.Size(81, 40);
             this.endLabel.TabIndex = 10;
             this.endLabel.Text = "End";
             // 
@@ -278,15 +298,14 @@ namespace Project_V3
             this.lengthOfData.Dock = System.Windows.Forms.DockStyle.Top;
             this.lengthOfData.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lengthOfData.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(146)))), ((int)(((byte)(249)))));
-            this.lengthOfData.Location = new System.Drawing.Point(0, 86);
-            this.lengthOfData.Margin = new System.Windows.Forms.Padding(2);
+            this.lengthOfData.Location = new System.Drawing.Point(0, 120);
             this.lengthOfData.Maximum = new decimal(new int[] {
             100000000,
             0,
             0,
             0});
             this.lengthOfData.Name = "lengthOfData";
-            this.lengthOfData.Size = new System.Drawing.Size(161, 28);
+            this.lengthOfData.Size = new System.Drawing.Size(242, 40);
             this.lengthOfData.TabIndex = 13;
             // 
             // label1
@@ -295,10 +314,9 @@ namespace Project_V3
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(146)))), ((int)(((byte)(249)))));
-            this.label1.Location = new System.Drawing.Point(0, 57);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(0, 80);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 29);
+            this.label1.Size = new System.Drawing.Size(127, 40);
             this.label1.TabIndex = 10;
             this.label1.Text = "Length";
             this.label1.Click += new System.EventHandler(this.sampleLabel_Click);
@@ -310,28 +328,26 @@ namespace Project_V3
             this.sampUpDown.Dock = System.Windows.Forms.DockStyle.Top;
             this.sampUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sampUpDown.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(146)))), ((int)(((byte)(249)))));
-            this.sampUpDown.Location = new System.Drawing.Point(0, 29);
-            this.sampUpDown.Margin = new System.Windows.Forms.Padding(2);
+            this.sampUpDown.Location = new System.Drawing.Point(0, 40);
             this.sampUpDown.Maximum = new decimal(new int[] {
             100000000,
             0,
             0,
             0});
             this.sampUpDown.Name = "sampUpDown";
-            this.sampUpDown.Size = new System.Drawing.Size(161, 28);
+            this.sampUpDown.Size = new System.Drawing.Size(242, 40);
             this.sampUpDown.TabIndex = 13;
             // 
             // panelFreq
             // 
             this.panelFreq.AutoScroll = true;
+            this.panelFreq.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panelFreq.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
             this.panelFreq.Controls.Add(this.chart2);
-            this.panelFreq.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelFreq.Location = new System.Drawing.Point(265, 0);
-            this.panelFreq.Margin = new System.Windows.Forms.Padding(2);
+            this.panelFreq.Location = new System.Drawing.Point(413, 21);
             this.panelFreq.Name = "panelFreq";
-            this.panelFreq.Padding = new System.Windows.Forms.Padding(10);
-            this.panelFreq.Size = new System.Drawing.Size(1045, 368);
+            this.panelFreq.Padding = new System.Windows.Forms.Padding(15);
+            this.panelFreq.Size = new System.Drawing.Size(1075, 455);
             this.panelFreq.TabIndex = 16;
             // 
             // triangleWindowBtn
@@ -343,10 +359,9 @@ namespace Project_V3
             this.triangleWindowBtn.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.triangleWindowBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
             this.triangleWindowBtn.Location = new System.Drawing.Point(0, 0);
-            this.triangleWindowBtn.Margin = new System.Windows.Forms.Padding(2);
             this.triangleWindowBtn.Name = "triangleWindowBtn";
-            this.triangleWindowBtn.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.triangleWindowBtn.Size = new System.Drawing.Size(248, 50);
+            this.triangleWindowBtn.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.triangleWindowBtn.Size = new System.Drawing.Size(372, 77);
             this.triangleWindowBtn.TabIndex = 17;
             this.triangleWindowBtn.Text = "Triangle";
             this.triangleWindowBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -361,11 +376,10 @@ namespace Project_V3
             this.rectWindowBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rectWindowBtn.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rectWindowBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
-            this.rectWindowBtn.Location = new System.Drawing.Point(0, 50);
-            this.rectWindowBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.rectWindowBtn.Location = new System.Drawing.Point(0, 77);
             this.rectWindowBtn.Name = "rectWindowBtn";
-            this.rectWindowBtn.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.rectWindowBtn.Size = new System.Drawing.Size(248, 50);
+            this.rectWindowBtn.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.rectWindowBtn.Size = new System.Drawing.Size(372, 77);
             this.rectWindowBtn.TabIndex = 18;
             this.rectWindowBtn.Text = "Rectangle";
             this.rectWindowBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -380,11 +394,10 @@ namespace Project_V3
             this.welchWindowBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.welchWindowBtn.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.welchWindowBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
-            this.welchWindowBtn.Location = new System.Drawing.Point(0, 100);
-            this.welchWindowBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.welchWindowBtn.Location = new System.Drawing.Point(0, 154);
             this.welchWindowBtn.Name = "welchWindowBtn";
-            this.welchWindowBtn.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.welchWindowBtn.Size = new System.Drawing.Size(248, 50);
+            this.welchWindowBtn.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.welchWindowBtn.Size = new System.Drawing.Size(372, 77);
             this.welchWindowBtn.TabIndex = 19;
             this.welchWindowBtn.Text = "Welch";
             this.welchWindowBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -397,15 +410,22 @@ namespace Project_V3
             this.panelWindows.Controls.Add(this.rectWindowBtn);
             this.panelWindows.Controls.Add(this.triangleWindowBtn);
             this.panelWindows.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelWindows.Location = new System.Drawing.Point(0, 664);
+            this.panelWindows.Location = new System.Drawing.Point(0, 1022);
+            this.panelWindows.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelWindows.Name = "panelWindows";
-            this.panelWindows.Size = new System.Drawing.Size(248, 160);
+            this.panelWindows.Size = new System.Drawing.Size(372, 246);
             this.panelWindows.TabIndex = 20;
             // 
             // panel2
             // 
             this.panel2.AutoScroll = true;
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
+            this.panel2.Controls.Add(this.panelSampleRate);
+            this.panel2.Controls.Add(this.btnSampleRate);
+            this.panel2.Controls.Add(this.panelThreads);
+            this.panel2.Controls.Add(this.btnThreads);
+            this.panel2.Controls.Add(this.panelEdit);
+            this.panel2.Controls.Add(this.btnEdit);
             this.panel2.Controls.Add(this.pnlNav);
             this.panel2.Controls.Add(this.panelWindows);
             this.panel2.Controls.Add(this.btnWindow);
@@ -417,18 +437,185 @@ namespace Project_V3
             this.panel2.Controls.Add(this.btnView);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(265, 761);
+            this.panel2.Size = new System.Drawing.Size(398, 1913);
             this.panel2.TabIndex = 0;
+            // 
+            // panelThreads
+            // 
+            this.panelThreads.Controls.Add(this.btnThread4);
+            this.panelThreads.Controls.Add(this.btnThread3);
+            this.panelThreads.Controls.Add(this.btnThread2);
+            this.panelThreads.Controls.Add(this.btnThread1);
+            this.panelThreads.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelThreads.Location = new System.Drawing.Point(0, 1590);
+            this.panelThreads.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panelThreads.Name = "panelThreads";
+            this.panelThreads.Size = new System.Drawing.Size(372, 168);
+            this.panelThreads.TabIndex = 24;
+            // 
+            // btnThread4
+            // 
+            this.btnThread4.AutoSize = true;
+            this.btnThread4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnThread4.FlatAppearance.BorderSize = 0;
+            this.btnThread4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThread4.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThread4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
+            this.btnThread4.Location = new System.Drawing.Point(0, 125);
+            this.btnThread4.Name = "btnThread4";
+            this.btnThread4.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btnThread4.Size = new System.Drawing.Size(372, 38);
+            this.btnThread4.TabIndex = 20;
+            this.btnThread4.Text = "4";
+            this.btnThread4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnThread4.UseVisualStyleBackColor = true;
+            this.btnThread4.Click += new System.EventHandler(this.btnThread4_Click);
+            // 
+            // btnThread3
+            // 
+            this.btnThread3.AutoSize = true;
+            this.btnThread3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnThread3.FlatAppearance.BorderSize = 0;
+            this.btnThread3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThread3.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThread3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
+            this.btnThread3.Location = new System.Drawing.Point(0, 82);
+            this.btnThread3.Name = "btnThread3";
+            this.btnThread3.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btnThread3.Size = new System.Drawing.Size(372, 43);
+            this.btnThread3.TabIndex = 19;
+            this.btnThread3.Text = "3";
+            this.btnThread3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnThread3.UseVisualStyleBackColor = true;
+            this.btnThread3.Click += new System.EventHandler(this.btnThread3_Click);
+            // 
+            // btnThread2
+            // 
+            this.btnThread2.AutoSize = true;
+            this.btnThread2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnThread2.FlatAppearance.BorderSize = 0;
+            this.btnThread2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThread2.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThread2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
+            this.btnThread2.Location = new System.Drawing.Point(0, 44);
+            this.btnThread2.Name = "btnThread2";
+            this.btnThread2.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btnThread2.Size = new System.Drawing.Size(372, 38);
+            this.btnThread2.TabIndex = 18;
+            this.btnThread2.Text = "2";
+            this.btnThread2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnThread2.UseVisualStyleBackColor = true;
+            this.btnThread2.Click += new System.EventHandler(this.btnThread2_Click);
+            // 
+            // btnThread1
+            // 
+            this.btnThread1.AutoSize = true;
+            this.btnThread1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnThread1.FlatAppearance.BorderSize = 0;
+            this.btnThread1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThread1.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThread1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
+            this.btnThread1.Location = new System.Drawing.Point(0, 0);
+            this.btnThread1.Name = "btnThread1";
+            this.btnThread1.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btnThread1.Size = new System.Drawing.Size(372, 44);
+            this.btnThread1.TabIndex = 17;
+            this.btnThread1.Text = "1";
+            this.btnThread1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnThread1.UseVisualStyleBackColor = true;
+            this.btnThread1.Click += new System.EventHandler(this.btnThread1_Click);
+            // 
+            // btnThreads
+            // 
+            this.btnThreads.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
+            this.btnThreads.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnThreads.FlatAppearance.BorderSize = 0;
+            this.btnThreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThreads.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThreads.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
+            this.btnThreads.Location = new System.Drawing.Point(0, 1513);
+            this.btnThreads.Name = "btnThreads";
+            this.btnThreads.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.btnThreads.Size = new System.Drawing.Size(372, 77);
+            this.btnThreads.TabIndex = 23;
+            this.btnThreads.Text = "Threads";
+            this.btnThreads.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnThreads.UseVisualStyleBackColor = false;
+            this.btnThreads.Click += new System.EventHandler(this.btnThreads_Click);
+            // 
+            // panelEdit
+            // 
+            this.panelEdit.Controls.Add(this.btnMaxAmp);
+            this.panelEdit.Controls.Add(this.btnReverse);
+            this.panelEdit.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelEdit.Location = new System.Drawing.Point(0, 1345);
+            this.panelEdit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panelEdit.Name = "panelEdit";
+            this.panelEdit.Size = new System.Drawing.Size(372, 168);
+            this.panelEdit.TabIndex = 22;
+            // 
+            // btnMaxAmp
+            // 
+            this.btnMaxAmp.AutoSize = true;
+            this.btnMaxAmp.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnMaxAmp.FlatAppearance.BorderSize = 0;
+            this.btnMaxAmp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMaxAmp.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMaxAmp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
+            this.btnMaxAmp.Location = new System.Drawing.Point(0, 77);
+            this.btnMaxAmp.Name = "btnMaxAmp";
+            this.btnMaxAmp.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btnMaxAmp.Size = new System.Drawing.Size(372, 77);
+            this.btnMaxAmp.TabIndex = 18;
+            this.btnMaxAmp.Text = "Amplify";
+            this.btnMaxAmp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnMaxAmp.UseVisualStyleBackColor = true;
+            this.btnMaxAmp.Click += new System.EventHandler(this.btnMaxAmp_Click);
+            // 
+            // btnReverse
+            // 
+            this.btnReverse.AutoSize = true;
+            this.btnReverse.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnReverse.FlatAppearance.BorderSize = 0;
+            this.btnReverse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReverse.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReverse.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
+            this.btnReverse.Location = new System.Drawing.Point(0, 0);
+            this.btnReverse.Name = "btnReverse";
+            this.btnReverse.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btnReverse.Size = new System.Drawing.Size(372, 77);
+            this.btnReverse.TabIndex = 17;
+            this.btnReverse.Text = "Reverse";
+            this.btnReverse.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReverse.UseVisualStyleBackColor = true;
+            this.btnReverse.Click += new System.EventHandler(this.btnReverse_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
+            this.btnEdit.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnEdit.FlatAppearance.BorderSize = 0;
+            this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEdit.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEdit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
+            this.btnEdit.Location = new System.Drawing.Point(0, 1268);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.btnEdit.Size = new System.Drawing.Size(372, 77);
+            this.btnEdit.TabIndex = 21;
+            this.btnEdit.Text = "Edit Wave";
+            this.btnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEdit.UseVisualStyleBackColor = false;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            this.btnEdit.Leave += new System.EventHandler(this.btnEdit_Leave);
             // 
             // pnlNav
             // 
             this.pnlNav.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.pnlNav.Location = new System.Drawing.Point(2, 672);
-            this.pnlNav.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlNav.Location = new System.Drawing.Point(3, 1521);
             this.pnlNav.Name = "pnlNav";
-            this.pnlNav.Size = new System.Drawing.Size(7, 57);
+            this.pnlNav.Size = new System.Drawing.Size(10, 88);
             this.pnlNav.TabIndex = 3;
             // 
             // btnWindow
@@ -439,11 +626,10 @@ namespace Project_V3
             this.btnWindow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnWindow.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnWindow.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
-            this.btnWindow.Location = new System.Drawing.Point(0, 614);
-            this.btnWindow.Margin = new System.Windows.Forms.Padding(2);
+            this.btnWindow.Location = new System.Drawing.Point(0, 945);
             this.btnWindow.Name = "btnWindow";
-            this.btnWindow.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnWindow.Size = new System.Drawing.Size(248, 50);
+            this.btnWindow.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.btnWindow.Size = new System.Drawing.Size(372, 77);
             this.btnWindow.TabIndex = 2;
             this.btnWindow.Text = "Windows";
             this.btnWindow.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -458,9 +644,10 @@ namespace Project_V3
             this.panelMedia.Controls.Add(this.btnPause);
             this.panelMedia.Controls.Add(this.btnPlay);
             this.panelMedia.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelMedia.Location = new System.Drawing.Point(0, 414);
+            this.panelMedia.Location = new System.Drawing.Point(0, 637);
+            this.panelMedia.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelMedia.Name = "panelMedia";
-            this.panelMedia.Size = new System.Drawing.Size(248, 200);
+            this.panelMedia.Size = new System.Drawing.Size(372, 308);
             this.panelMedia.TabIndex = 7;
             // 
             // btnRec
@@ -470,11 +657,10 @@ namespace Project_V3
             this.btnRec.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRec.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRec.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
-            this.btnRec.Location = new System.Drawing.Point(0, 150);
-            this.btnRec.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRec.Location = new System.Drawing.Point(0, 231);
             this.btnRec.Name = "btnRec";
-            this.btnRec.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnRec.Size = new System.Drawing.Size(248, 50);
+            this.btnRec.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btnRec.Size = new System.Drawing.Size(372, 77);
             this.btnRec.TabIndex = 2;
             this.btnRec.Text = "Record";
             this.btnRec.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -490,11 +676,10 @@ namespace Project_V3
             this.btnStopRec.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStopRec.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStopRec.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
-            this.btnStopRec.Location = new System.Drawing.Point(0, 100);
-            this.btnStopRec.Margin = new System.Windows.Forms.Padding(2);
+            this.btnStopRec.Location = new System.Drawing.Point(0, 154);
             this.btnStopRec.Name = "btnStopRec";
-            this.btnStopRec.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnStopRec.Size = new System.Drawing.Size(248, 50);
+            this.btnStopRec.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btnStopRec.Size = new System.Drawing.Size(372, 77);
             this.btnStopRec.TabIndex = 2;
             this.btnStopRec.Text = "Stop Recording";
             this.btnStopRec.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -510,13 +695,12 @@ namespace Project_V3
             this.btnPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPause.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPause.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
-            this.btnPause.Location = new System.Drawing.Point(0, 50);
-            this.btnPause.Margin = new System.Windows.Forms.Padding(2);
+            this.btnPause.Location = new System.Drawing.Point(0, 77);
             this.btnPause.Name = "btnPause";
-            this.btnPause.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnPause.Size = new System.Drawing.Size(248, 50);
+            this.btnPause.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btnPause.Size = new System.Drawing.Size(372, 77);
             this.btnPause.TabIndex = 2;
-            this.btnPause.Text = "Pause";
+            this.btnPause.Text = "Stop";
             this.btnPause.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPause.UseVisualStyleBackColor = true;
             this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
@@ -531,10 +715,9 @@ namespace Project_V3
             this.btnPlay.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlay.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
             this.btnPlay.Location = new System.Drawing.Point(0, 0);
-            this.btnPlay.Margin = new System.Windows.Forms.Padding(2);
             this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnPlay.Size = new System.Drawing.Size(248, 50);
+            this.btnPlay.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btnPlay.Size = new System.Drawing.Size(372, 77);
             this.btnPlay.TabIndex = 2;
             this.btnPlay.Text = "Play";
             this.btnPlay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -550,11 +733,10 @@ namespace Project_V3
             this.btnMedia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMedia.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMedia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
-            this.btnMedia.Location = new System.Drawing.Point(0, 364);
-            this.btnMedia.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMedia.Location = new System.Drawing.Point(0, 560);
             this.btnMedia.Name = "btnMedia";
-            this.btnMedia.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnMedia.Size = new System.Drawing.Size(248, 50);
+            this.btnMedia.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.btnMedia.Size = new System.Drawing.Size(372, 77);
             this.btnMedia.TabIndex = 2;
             this.btnMedia.Text = "Media";
             this.btnMedia.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -568,9 +750,10 @@ namespace Project_V3
             this.panelData.Controls.Add(this.filterAudio);
             this.panelData.Controls.Add(this.btnDFT);
             this.panelData.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelData.Location = new System.Drawing.Point(0, 209);
+            this.panelData.Location = new System.Drawing.Point(0, 322);
+            this.panelData.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelData.Name = "panelData";
-            this.panelData.Size = new System.Drawing.Size(248, 155);
+            this.panelData.Size = new System.Drawing.Size(372, 238);
             this.panelData.TabIndex = 6;
             // 
             // btnClear
@@ -580,11 +763,10 @@ namespace Project_V3
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClear.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
-            this.btnClear.Location = new System.Drawing.Point(0, 100);
-            this.btnClear.Margin = new System.Windows.Forms.Padding(2);
+            this.btnClear.Location = new System.Drawing.Point(0, 154);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnClear.Size = new System.Drawing.Size(248, 50);
+            this.btnClear.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btnClear.Size = new System.Drawing.Size(372, 77);
             this.btnClear.TabIndex = 2;
             this.btnClear.Text = "Clear";
             this.btnClear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -599,11 +781,10 @@ namespace Project_V3
             this.filterAudio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.filterAudio.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.filterAudio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
-            this.filterAudio.Location = new System.Drawing.Point(0, 50);
-            this.filterAudio.Margin = new System.Windows.Forms.Padding(2);
+            this.filterAudio.Location = new System.Drawing.Point(0, 77);
             this.filterAudio.Name = "filterAudio";
-            this.filterAudio.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.filterAudio.Size = new System.Drawing.Size(248, 50);
+            this.filterAudio.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.filterAudio.Size = new System.Drawing.Size(372, 77);
             this.filterAudio.TabIndex = 3;
             this.filterAudio.Text = "Lowpass Filter";
             this.filterAudio.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -618,10 +799,9 @@ namespace Project_V3
             this.btnDFT.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDFT.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.btnDFT.Location = new System.Drawing.Point(0, 0);
-            this.btnDFT.Margin = new System.Windows.Forms.Padding(2);
             this.btnDFT.Name = "btnDFT";
-            this.btnDFT.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnDFT.Size = new System.Drawing.Size(248, 50);
+            this.btnDFT.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btnDFT.Size = new System.Drawing.Size(372, 77);
             this.btnDFT.TabIndex = 1;
             this.btnDFT.Text = "Discrete Fourier Transform";
             this.btnDFT.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -637,11 +817,10 @@ namespace Project_V3
             this.btnData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnData.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnData.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
-            this.btnData.Location = new System.Drawing.Point(0, 159);
-            this.btnData.Margin = new System.Windows.Forms.Padding(2);
+            this.btnData.Location = new System.Drawing.Point(0, 245);
             this.btnData.Name = "btnData";
-            this.btnData.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnData.Size = new System.Drawing.Size(248, 50);
+            this.btnData.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.btnData.Size = new System.Drawing.Size(372, 77);
             this.btnData.TabIndex = 2;
             this.btnData.Text = "Data";
             this.btnData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -654,9 +833,10 @@ namespace Project_V3
             this.panelView.Controls.Add(this.btnZoom);
             this.panelView.Controls.Add(this.btnSelect);
             this.panelView.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelView.Location = new System.Drawing.Point(0, 50);
+            this.panelView.Location = new System.Drawing.Point(0, 77);
+            this.panelView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(248, 109);
+            this.panelView.Size = new System.Drawing.Size(372, 168);
             this.panelView.TabIndex = 5;
             // 
             // btnZoom
@@ -666,11 +846,10 @@ namespace Project_V3
             this.btnZoom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnZoom.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnZoom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
-            this.btnZoom.Location = new System.Drawing.Point(0, 50);
-            this.btnZoom.Margin = new System.Windows.Forms.Padding(2);
+            this.btnZoom.Location = new System.Drawing.Point(0, 77);
             this.btnZoom.Name = "btnZoom";
-            this.btnZoom.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnZoom.Size = new System.Drawing.Size(248, 50);
+            this.btnZoom.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btnZoom.Size = new System.Drawing.Size(372, 77);
             this.btnZoom.TabIndex = 2;
             this.btnZoom.Text = "Zoom";
             this.btnZoom.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -685,10 +864,9 @@ namespace Project_V3
             this.btnSelect.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
             this.btnSelect.Location = new System.Drawing.Point(0, 0);
-            this.btnSelect.Margin = new System.Windows.Forms.Padding(2);
             this.btnSelect.Name = "btnSelect";
-            this.btnSelect.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnSelect.Size = new System.Drawing.Size(248, 50);
+            this.btnSelect.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btnSelect.Size = new System.Drawing.Size(372, 77);
             this.btnSelect.TabIndex = 2;
             this.btnSelect.Text = "Select";
             this.btnSelect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -705,10 +883,9 @@ namespace Project_V3
             this.btnView.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnView.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
             this.btnView.Location = new System.Drawing.Point(0, 0);
-            this.btnView.Margin = new System.Windows.Forms.Padding(2);
             this.btnView.Name = "btnView";
-            this.btnView.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnView.Size = new System.Drawing.Size(248, 50);
+            this.btnView.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.btnView.Size = new System.Drawing.Size(372, 77);
             this.btnView.TabIndex = 2;
             this.btnView.Text = "View";
             this.btnView.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -716,21 +893,117 @@ namespace Project_V3
             this.btnView.Click += new System.EventHandler(this.btnView_Click);
             this.btnView.Leave += new System.EventHandler(this.btnView_Leave);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.panelDFT, 0, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(413, 12);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.75377F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.24623F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1078, 933);
+            this.tableLayoutPanel1.TabIndex = 17;
+            // 
+            // btnSampleRate
+            // 
+            this.btnSampleRate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
+            this.btnSampleRate.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSampleRate.FlatAppearance.BorderSize = 0;
+            this.btnSampleRate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSampleRate.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSampleRate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
+            this.btnSampleRate.Location = new System.Drawing.Point(0, 1758);
+            this.btnSampleRate.Name = "btnSampleRate";
+            this.btnSampleRate.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.btnSampleRate.Size = new System.Drawing.Size(372, 77);
+            this.btnSampleRate.TabIndex = 25;
+            this.btnSampleRate.Text = "Sample Rate";
+            this.btnSampleRate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSampleRate.UseVisualStyleBackColor = false;
+            this.btnSampleRate.Click += new System.EventHandler(this.btnSampleRate_Click);
+            // 
+            // panelSampleRate
+            // 
+            this.panelSampleRate.Controls.Add(this.btn44100);
+            this.panelSampleRate.Controls.Add(this.btn22050);
+            this.panelSampleRate.Controls.Add(this.btn11025);
+            this.panelSampleRate.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelSampleRate.Location = new System.Drawing.Point(0, 1835);
+            this.panelSampleRate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panelSampleRate.Name = "panelSampleRate";
+            this.panelSampleRate.Size = new System.Drawing.Size(372, 168);
+            this.panelSampleRate.TabIndex = 26;
+            // 
+            // btn44100
+            // 
+            this.btn44100.AutoSize = true;
+            this.btn44100.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn44100.FlatAppearance.BorderSize = 0;
+            this.btn44100.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn44100.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn44100.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
+            this.btn44100.Location = new System.Drawing.Point(0, 82);
+            this.btn44100.Name = "btn44100";
+            this.btn44100.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btn44100.Size = new System.Drawing.Size(372, 43);
+            this.btn44100.TabIndex = 19;
+            this.btn44100.Text = "44100 Hz";
+            this.btn44100.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn44100.UseVisualStyleBackColor = true;
+            this.btn44100.Click += new System.EventHandler(this.btn44100_Click);
+            // 
+            // btn22050
+            // 
+            this.btn22050.AutoSize = true;
+            this.btn22050.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn22050.FlatAppearance.BorderSize = 0;
+            this.btn22050.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn22050.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn22050.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
+            this.btn22050.Location = new System.Drawing.Point(0, 44);
+            this.btn22050.Name = "btn22050";
+            this.btn22050.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btn22050.Size = new System.Drawing.Size(372, 38);
+            this.btn22050.TabIndex = 18;
+            this.btn22050.Text = "22050 Hz";
+            this.btn22050.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn22050.UseVisualStyleBackColor = true;
+            this.btn22050.Click += new System.EventHandler(this.btn22050_Click);
+            // 
+            // btn11025
+            // 
+            this.btn11025.AutoSize = true;
+            this.btn11025.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn11025.FlatAppearance.BorderSize = 0;
+            this.btn11025.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn11025.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn11025.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(240)))));
+            this.btn11025.Location = new System.Drawing.Point(0, 0);
+            this.btn11025.Name = "btn11025";
+            this.btn11025.Padding = new System.Windows.Forms.Padding(52, 0, 0, 0);
+            this.btn11025.Size = new System.Drawing.Size(372, 44);
+            this.btn11025.TabIndex = 17;
+            this.btn11025.Text = "11025 Hz";
+            this.btn11025.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn11025.UseVisualStyleBackColor = true;
+            this.btn11025.Click += new System.EventHandler(this.btn11025_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(1471, 761);
+            this.ClientSize = new System.Drawing.Size(2438, 1913);
             this.Controls.Add(this.panelFreq);
-            this.Controls.Add(this.panelDFT);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panelSamples);
             this.Controls.Add(this.panel2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
-            this.MinimumSize = new System.Drawing.Size(950, 600);
+            this.MinimumSize = new System.Drawing.Size(1414, 893);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Wave Analyzer";
@@ -747,9 +1020,16 @@ namespace Project_V3
             this.panelWindows.ResumeLayout(false);
             this.panelWindows.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panelThreads.ResumeLayout(false);
+            this.panelThreads.PerformLayout();
+            this.panelEdit.ResumeLayout(false);
+            this.panelEdit.PerformLayout();
             this.panelMedia.ResumeLayout(false);
             this.panelData.ResumeLayout(false);
             this.panelView.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.panelSampleRate.ResumeLayout(false);
+            this.panelSampleRate.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -792,6 +1072,22 @@ namespace Project_V3
         private System.Windows.Forms.Button btnMedia;
         private System.Windows.Forms.Button btnView;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel panelEdit;
+        private System.Windows.Forms.Button btnMaxAmp;
+        private System.Windows.Forms.Button btnReverse;
+        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Panel panelThreads;
+        private System.Windows.Forms.Button btnThread3;
+        private System.Windows.Forms.Button btnThread2;
+        private System.Windows.Forms.Button btnThread1;
+        private System.Windows.Forms.Button btnThreads;
+        private System.Windows.Forms.Button btnThread4;
+        private System.Windows.Forms.Panel panelSampleRate;
+        private System.Windows.Forms.Button btn44100;
+        private System.Windows.Forms.Button btn22050;
+        private System.Windows.Forms.Button btn11025;
+        private System.Windows.Forms.Button btnSampleRate;
     }
 }
 

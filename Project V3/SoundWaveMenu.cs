@@ -130,5 +130,33 @@ namespace Project_V3
             }
         }
 
+        private void cascadeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(System.Windows.Forms.MdiLayout.Cascade);
+        }
+
+        private void verticalWindowsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(System.Windows.Forms.MdiLayout.TileVertical);
+        }
+
+        private void horizontalWindowsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(System.Windows.Forms.MdiLayout.TileHorizontal);
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Asks the user if they really want to quit the application
+            if (MessageBox.Show("Did you save your work?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ActiveMdiChild.Close();
+        }
     }
 }

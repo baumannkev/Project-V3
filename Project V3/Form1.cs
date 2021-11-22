@@ -145,6 +145,10 @@ namespace Project_V3
             panelView.Visible = false;
             panelWindows.Visible = false;
             panelData.Visible = false;
+            panelEdit.Visible = false;
+            panelEdit.Visible = false;
+            panelThreads.Visible = false;
+            panelSampleRate.Visible = false;
         }
 
         private void hideSubMenu()
@@ -157,6 +161,12 @@ namespace Project_V3
                 panelWindows.Visible = false;
             if (panelData.Visible == true)
                 panelData.Visible = false;
+            if (panelEdit.Visible == true)
+                panelEdit.Visible = false;
+            if (panelThreads.Visible == true)
+                panelThreads.Visible = false;
+            if (panelSampleRate.Visible == true)
+                panelSampleRate.Visible = false;
         }
 
         private void showSubMenu(Panel submenu)
@@ -491,6 +501,11 @@ namespace Project_V3
             globalCopyPoints.setEnd(globalChartSelection.getEnd());
             return copyArray;
         }
+        
+        public static void rev()
+        {
+            
+        }
 
         /*
            FreqWaveChart_Paste
@@ -571,15 +586,6 @@ namespace Project_V3
             this.Text += "*";
             globalWavHead.updateSubChunk2(globalFreq.Length * globalWavHead.BlockAlign);
             lengthOfData.Value = globalFreq.Length;
-        }
-
-        public void quitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // Asks the user if they really want to quit the application
-            if (MessageBox.Show("Did you save your work?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
-            {
-                Application.Exit();
-            }
         }
 
         /*
@@ -706,6 +712,7 @@ namespace Project_V3
         }
         private void btnClear_Click(object sender, EventArgs e)
         {
+            this.Text += " - Clearing...";
             pnlNav.Height = btnData.Height;
             pnlNav.Top = btnData.Top;
             pnlNav.Left = btnData.Left;
@@ -714,15 +721,20 @@ namespace Project_V3
             plotFreqWaveChart(globalFreq);
             lengthOfData.Value = globalFreq.Length;
             chart2.ChartAreas[0].AxisX.Minimum = 0;
+            this.Text = globalFilePath;
+            this.Text += "*";
         }
 
         private void btnDFT_Click(object sender, EventArgs e)
         {
+            this.Text += " - Performing DFT...";
             pnlNav.Height = btnData.Height;
             pnlNav.Top = btnData.Top;
             pnlNav.Left = btnData.Left;
             btnData.BackColor = Color.FromArgb(46, 51, 73);
             plotHFTWaveChart();
+            this.Text = globalFilePath;
+            this.Text += "*";
         }
         /*
            filterAudio_Click
@@ -748,6 +760,8 @@ namespace Project_V3
             this.Text = globalFilePath;
             this.Text += "*";
         }
+
+
         #endregion
         #region MediaSubMenu
         private void btnMedia_Click(object sender, EventArgs e)
@@ -760,6 +774,7 @@ namespace Project_V3
         }
         private void btnRec_Click(object sender, EventArgs e)
         {
+
             pnlNav.Height = btnMedia.Height;
             pnlNav.Top = btnMedia.Top;
             pnlNav.Left = btnMedia.Left;
@@ -768,7 +783,11 @@ namespace Project_V3
             btnRec.Enabled = false;
             btnStopRec.Enabled = true;
             btnPlay.Enabled = false;
+            btnPause.Enabled = false;
             handler.Record();
+            globalFilePath = "NewRecording.wav";
+            this.Text += "NewRecording.wav";
+
         }
 
         private void btnStopRec_Click(object sender, EventArgs e)
@@ -799,6 +818,7 @@ namespace Project_V3
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
+            this.Text += " - Playing Media...";
             pnlNav.Height = btnMedia.Height;
             pnlNav.Top = btnMedia.Top;
             pnlNav.Left = btnMedia.Left;
@@ -807,14 +827,17 @@ namespace Project_V3
             handler.play(globalFreq, globalWavHead);
             btnRec.Enabled = true;
             btnStopRec.Enabled = false;
+            btnPause.Enabled = true;
+            this.Text = globalFilePath;
         }
 
         private void btnPause_Click(object sender, EventArgs e)
         {
-            pnlNav.Height = btnPause.Height;
-            pnlNav.Top = btnPause.Top;
-            pnlNav.Left = btnPause.Left;
-            btnPause.BackColor = Color.FromArgb(46, 51, 73);
+            pnlNav.Height = btnMedia.Height;
+            handler.stop_playing();
+            pnlNav.Top = btnMedia.Top;
+            pnlNav.Left = btnMedia.Left;
+            btnMedia.BackColor = Color.FromArgb(46, 51, 73);
         }
         #endregion
         #region WindowsSubMenu
@@ -833,7 +856,10 @@ namespace Project_V3
         */
         private void welchWindowBtn_Click(object sender, EventArgs e)
         {
+            this.Text += " - Performing Welch Window...";
             plotHFTWaveChart("Welch");
+            this.Text = globalFilePath;
+            this.Text += "*";
         }
 
         /*
@@ -843,7 +869,10 @@ namespace Project_V3
         */
         private void triangleWindowBtn_Click(object sender, EventArgs e)
         {
+            this.Text += " - Performing Triangle Window...";
             plotHFTWaveChart("Triangle");
+            this.Text = globalFilePath;
+            this.Text += "*";
         }
 
         /*
@@ -853,7 +882,102 @@ namespace Project_V3
         */
         private void rectWindowBtn_Click(object sender, EventArgs e)
         {
+            this.Text += " - Performing Rectangle Window...";
             plotHFTWaveChart("Rectangle");
+            this.Text = globalFilePath;
+            this.Text += "*";
+        }
+        #endregion
+        #region EditWave
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            showSubMenu(panelEdit);
+            pnlNav.Height = btnEdit.Height;
+            pnlNav.Top = btnEdit.Top;
+            pnlNav.Left = btnEdit.Left;
+            btnEdit.BackColor = Color.FromArgb(46, 51, 73);
+        }
+        private void btnReverse_Click(object sender, EventArgs e)
+        {
+            this.Text += " - Reversing Wave...";
+            pnlNav.Height = btnEdit.Height;
+            pnlNav.Top = btnEdit.Top;
+            pnlNav.Left = btnEdit.Left;
+            btnEdit.BackColor = Color.FromArgb(46, 51, 73);
+
+            Array.Reverse(globalFreq);
+            plotFreqWaveChart(globalFreq);
+            this.Text = globalFilePath;
+            this.Text += "*";
+
+        }
+        private void btnMaxAmp_Click(object sender, EventArgs e)
+        {
+            this.Text += " - Amplifying...";
+            for (int i = 0; i < globalFreq.Length; i++)
+            {
+                globalFreq[i] = globalFreq[i] * 1.75;
+            }
+            plotFreqWaveChart(globalFreq);
+            this.Text = globalFilePath;
+            this.Text += "*";
+        }
+        #endregion
+        #region Sample Rates
+        private void btnSampleRate_Click(object sender, EventArgs e)
+        {
+            showSubMenu(panelSampleRate);
+            pnlNav.Height = btnSampleRate.Height;
+            pnlNav.Top = btnSampleRate.Top;
+            pnlNav.Left = btnSampleRate.Left;
+            btnSampleRate.BackColor = Color.FromArgb(46, 51, 73);
+        }
+        private void btn11025_Click(object sender, EventArgs e)
+        {
+            sampUpDown.Value = 11025;
+            globalWavHead.updateSampleRate((uint)sampUpDown.Value);
+            this.Text += "*";
+        }
+
+        private void btn22050_Click(object sender, EventArgs e)
+        {
+            sampUpDown.Value = 22050;
+            globalWavHead.updateSampleRate((uint)sampUpDown.Value);
+            this.Text += "*";
+        }
+
+        private void btn44100_Click(object sender, EventArgs e)
+        {
+            sampUpDown.Value = 44100;
+            globalWavHead.updateSampleRate((uint)sampUpDown.Value);
+            plotFreqWaveChart(globalFreq);
+            this.Text += "*";
+        }
+        #endregion
+        #region Threads
+        private void btnThreads_Click(object sender, EventArgs e)
+        {
+            showSubMenu(panelThreads);
+            pnlNav.Height = btnThreads.Height;
+            pnlNav.Top = btnThreads.Top;
+            pnlNav.Left = btnThreads.Left;
+            btnThreads.BackColor = Color.FromArgb(46, 51, 73);
+        }
+        private void btnThread1_Click(object sender, EventArgs e)
+        {
+            threads = 1;
+        }
+        private void btnThread2_Click(object sender, EventArgs e)
+        {
+            threads = 2;
+        }
+        private void btnThread3_Click(object sender, EventArgs e)
+        {
+            threads = 3;
+        }
+        private void btnThread4_Click(object sender, EventArgs e)
+        {
+            threads = 4;
         }
         #endregion
         #region LeaveEvents
@@ -870,6 +994,10 @@ namespace Project_V3
             btnMedia.BackColor = Color.FromArgb(37, 42, 64);
         }
         private void btnWindow_Leave(object sender, EventArgs e)
+        {
+            btnWindow.BackColor = Color.FromArgb(37, 42, 64);
+        }
+        private void btnEdit_Leave(object sender, EventArgs e)
         {
             btnWindow.BackColor = Color.FromArgb(37, 42, 64);
         }
@@ -930,5 +1058,6 @@ namespace Project_V3
         {
 
         }
+
     }
 }

@@ -191,6 +191,14 @@ namespace Project_V3
         */
         [DllImport("winmm.dll", EntryPoint = "waveOutStop", SetLastError = true)]
         static extern uint waveOutStop(IntPtr hwi);
+
+        /*
+            waveiInUnprepareHeader
+            Purpose:
+                Function to pause the wave output.
+         */
+        [DllImport("winmm.dll", EntryPoint = "waveOutPause", SetLastError = true)]
+        static extern uint waveOutPause(IntPtr hwi);
         /*
             waveInUnprepareHeader
             Purpose:
@@ -332,10 +340,9 @@ namespace Project_V3
             setupOutbuffer();
         }
 
-        /*
-            Not implemented
-        */
+        
         public void stop_playing() {
+            waveOutPause(hndWavOut);
         }
 
         /*
