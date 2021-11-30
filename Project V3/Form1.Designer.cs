@@ -122,8 +122,7 @@
             chartArea1.AxisX.MinorTickMark.Enabled = true;
             chartArea1.AxisX.MinorTickMark.LineColor = System.Drawing.Color.White;
             chartArea1.AxisX.ScaleView.SmallScrollSizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
-            chartArea1.AxisX.ScaleView.Zoomable = true;
-            chartArea1.AxisY.ScaleView.Zoomable = true;
+            chartArea1.AxisX.ScaleView.Zoomable = false;
             chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
             chartArea1.AxisY.LineColor = System.Drawing.Color.White;
             chartArea1.AxisY.MajorGrid.Enabled = false;
@@ -137,7 +136,6 @@
             chartArea1.CursorX.LineColor = System.Drawing.Color.Green;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.MouseWheel += chart1_MouseWheel;
             
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
             legend1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
@@ -178,8 +176,7 @@
             chartArea2.AxisX.MinorTickMark.Enabled = true;
             chartArea2.AxisX.MinorTickMark.LineColor = System.Drawing.Color.WhiteSmoke;
             chartArea2.AxisX.ScaleView.SmallScrollSizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
-            chartArea2.AxisX.ScaleView.Zoomable = true;
-            chartArea2.AxisY.ScaleView.Zoomable = true;
+            chartArea2.AxisX.ScaleView.Zoomable = false;
             chartArea2.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke;
             chartArea2.AxisY.LineColor = System.Drawing.Color.Snow;
             chartArea2.AxisY.MajorGrid.Enabled = false;
