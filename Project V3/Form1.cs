@@ -31,9 +31,6 @@ namespace Project_V3
     );
 
 
-
-
-
         Fourier fourier = new Fourier();
 
         /*
@@ -467,8 +464,10 @@ namespace Project_V3
             double dataEnd = chart2.ChartAreas[0].CursorX.SelectionEnd;
             startLabel.Text = "Start: " + dataStart;
             endLabel.Text = "End: " + dataEnd;
+            labelSelected.Text = "Total: " + (dataEnd - dataStart);
             startLabel.Visible = true;
             endLabel.Visible = true;
+            labelSelected.Visible = true;
             if (dataStart < dataEnd)
             {
                 globalChartSelection.setStart(dataStart);
@@ -762,7 +761,6 @@ namespace Project_V3
             this.Text += "*";
         }
 
-
         #endregion
         #region MediaSubMenu
         private void btnMedia_Click(object sender, EventArgs e)
@@ -1037,27 +1035,41 @@ namespace Project_V3
         {
             //btnPause.BackColor = Color.FromArgb(24, 30, 54);
         }
+
+
+
         #endregion
 
-        private void panel4_Paint(object sender, PaintEventArgs e)
+       private void chart1_MouseWheel(object sender, MouseEventArgs e)
         {
+            var chart = (Chart)sender;
+            var xAxis = chart.ChartAreas[0].AxisX;
+            var yAxis = chart.ChartAreas[0].AxisY;
 
+            try
+            {
+                if (e.Delta < 0) // Scrolled down.
+                {
+                    xAxis.ScaleView.ZoomReset();
+                    yAxis.ScaleView.ZoomReset();
+                }
+                else if (e.Delta > 0) // Scrolled up.
+                {
+                    var xMin = xAxis.ScaleView.ViewMinimum;
+                    var xMax = xAxis.ScaleView.ViewMaximum;
+                    var yMin = yAxis.ScaleView.ViewMinimum;
+                    var yMax = yAxis.ScaleView.ViewMaximum;
+
+                    var posXStart = xAxis.PixelPositionToValue(e.Location.X) - (xMax - xMin) / 4;
+                    var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
+                    var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - (yMax - yMin) / 4;
+                    var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + (yMax - yMin) / 4;
+
+                    xAxis.ScaleView.Zoom(posXStart, posXFinish);
+                    yAxis.ScaleView.Zoom(posYStart, posYFinish);
+                }
+            }
+            catch { }
         }
-
-        private void sampleLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }
