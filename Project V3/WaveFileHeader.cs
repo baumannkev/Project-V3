@@ -12,8 +12,6 @@ namespace Project_V3
         // For using mmioStringToFOURCC
         [DllImport("winmm.dll")]
         public static extern int mmioStringToFOURCC([MarshalAs(UnmanagedType.LPStr)] String s, int flags);
-        [DllImport("winmm.dll")]
-        public static extern int mciSendString(String MciCommand, String MciReturn, int MciReturnLength, int CallBack);
 
         /*
             Variables:
