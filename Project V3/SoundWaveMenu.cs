@@ -71,14 +71,6 @@ namespace Project_V3
             }
         }
 
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e) { saveWavFile.ShowDialog(); }
-
-        private void fileSystemWatcher1_Changed(object sender, System.IO.FileSystemEventArgs e)
-        {
-
-        }
-       
-
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form activeChild = this.ActiveMdiChild;
@@ -112,11 +104,6 @@ namespace Project_V3
                 double[] array = chartInput.FreqWaveChart_Cut();
                 Clipboard.SetDataObject(array);
             }
-        }
-
-        private void SoundWav_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -157,6 +144,13 @@ namespace Project_V3
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ActiveMdiChild.Close();
+        }
+
+        private void openHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Help help = new Help();
+            help.Enabled = true;
+            help.ShowDialog();
         }
     }
 }

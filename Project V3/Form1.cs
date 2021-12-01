@@ -136,7 +136,7 @@ namespace Project_V3
             customizeDesign();
 
         }
-
+        #region PanelFunctionality
         private void customizeDesign()
         {
             panelMedia.Visible = false;
@@ -177,9 +177,10 @@ namespace Project_V3
             else
                 submenu.Visible = false;
         }
+        #endregion
 
-        // HAVE TO FIX *****N******* 
-        //what does N become when the file is opened?
+        #region File Functions
+        //Open File to read in a wav file
         public void OpenFile(string fileName)
         {
             globalFilePath = fileName;
@@ -187,9 +188,6 @@ namespace Project_V3
             globalFreq = readingWave(globalFilePath);
             sampUpDown.Value = globalWavHead.SampleRate;
             lengthOfData.Value = globalWavHead.SubChunk2Size;
-            //Gets the Complex number 
-           /* Complex[] complexNumbers = fourier.DFT(1000, globalFreq);
-            globalAmp = fourier.getAmplitude(complexNumbers, 1000);*/
             chart1.Series[0].Points.Clear(); // clears the data of the amplitude chart
             chart2.Series[0].Points.Clear(); // clears the data in the wave form chart
             // Plots the wave data
@@ -197,6 +195,7 @@ namespace Project_V3
             btnPlay.Enabled = true;
         }
 
+        //Reads the wave from the wav file chosen in the open file dialog window
         public double[] readingWave(String fileName)
         {
             byte[] byteArray;
@@ -227,56 +226,6 @@ namespace Project_V3
             return outputArray;
         }
 
-        public void plotFreqWaveChart(double[] freq)
-        {
-            chart2.Series[0].Points.Clear();
-            for (int m = 0; m < freq.Length; m++)
-            { 
-                chart2.Series[0].Points.AddXY(m, freq[m]);
-            }
-            lengthOfData.Value = freq.Length;
-            chart2.ChartAreas[0].AxisX.Minimum = 0;
-
-            /* Fourier fourier = new Fourier();
-
-             lengthOfData.Value = freq.Length;
-
-             int blockSize = 8000;
-             var series = chart2.Series.Add("Freq");
-             series.ChartType = SeriesChartType.Line;
-             series.XValueType = ChartValueType.Int32;
-
-             double[] samples = freq;
-             //double S = N;
-             for (int m = 0; m < freq.Length - 1; m++)
-             {
-                 chart2.Series["Freq"].Points.AddXY(m, freq[m]);
-             }
-
-             var chartArea = chart2.ChartAreas[series.ChartArea];
-
-             // set view range to [0,max]
-             chartArea.AxisX.Minimum = 0;
-             chartArea.AxisX.Maximum = freq.Length;
-
-             // enable autoscroll
-             chartArea.CursorX.AutoScroll = true;
-
-             // let's zoom to [0,blockSize] (e.g. [0,100])
-             chartArea.AxisX.ScaleView.Zoomable = true;
-             chartArea.AxisX.ScaleView.SizeType = DateTimeIntervalType.Number;
-             int position = 0;
-             int size = blockSize;
-             chartArea.AxisX.ScaleView.Zoom(position, size);
-
-             // disable zoom-reset button (only scrollbar's arrows are available)
-             chartArea.AxisX.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
-
-             // set scrollbar small change to blockSize (e.g. 100)
-             chartArea.AxisX.ScaleView.SmallScrollSize = blockSize;*/
-        }
-
-
         public void SaveFile(string fileName)
         {
             this.Text = fileName; // Sets the text of the form to the file name
@@ -284,9 +233,6 @@ namespace Project_V3
             BinaryWriter wr = new BinaryWriter(f);
             // initialize new wav head
             // freq, samp
-            //globalWavHead.updateSubChunk2(globalFreq.Length);
-            //globalWavHead.SubChunk2Size = globalFreq.Length;
-            //globalWavHead.ChunkSize = globalWavHead.SubChunk2Size + 44;
             fwrite(wr, globalWavHead);
             // convert to int
             int[] intAr = globalFreq.Select(x => Convert.ToInt32(Math.Round(x))).ToArray();
@@ -299,6 +245,7 @@ namespace Project_V3
             this.Text = fileName;
         }
 
+        //Write to the file for saving
         public void fwrite(BinaryWriter file, WaveFileHeader waveHead)
         {
             file.Write(waveHead.ChunkID);
@@ -316,6 +263,7 @@ namespace Project_V3
             file.Write(waveHead.SubChunk2Size);
         }
 
+        //Writing to the file to be saved
         public void fwrite(BinaryWriter file, int samples, byte[] data)
         {
             // doubling sample size
@@ -323,30 +271,19 @@ namespace Project_V3
             { file.Write(data[i]); }
         }
 
-        /*
-            plotHFTWaveChart
-            Purpose:
-                Plots the frequency domain chart based on the seleciton of the
-                user on the time domain.                
-        */
-        /*  public void plotHFTWaveChart()
-          {
-              int selection = (int)(globalChart2Selection.getEnd() - globalChart2Selection.getStart());
-              int start = (int)(globalChartSelection.getStart());
-              // Save the points for the windowed data
-              // This is incase the user selects a new point.
-              globalWindowedSelection.setStart(globalChart2Selection.getStart());
-              globalWindowedSelection.setEnd(globalChart2Selection.getEnd());
-              double[] copiedFreq = globalFreq;
-              //globalWindowing.Triangle(copiedFreq, selection, start); // Default
-              //globalAmp = DFT.threadDFTFunc(copiedFreq, selection, threads);
-              globalAmp = fourier.getAmplitudes(copiedFreq, selection);
-              chart1.Series[0].Points.Clear();
-              for (int i = 0; i < globalAmp.Length; i++)
-              { chart1.Series["DFT"].Points.AddXY(i, globalAmp[i]); }
-              //filterAudioToolStripMenuItem.Enabled = true;
-              chart1.ChartAreas[0].AxisX.Minimum = 0;
-          }*/
+        #endregion
+
+        #region DFT Calls
+        public void plotFreqWaveChart(double[] freq)
+        {
+            chart2.Series[0].Points.Clear();
+            for (int m = 0; m < freq.Length; m++)
+            {
+                chart2.Series[0].Points.AddXY(m, freq[m]);
+            }
+            lengthOfData.Value = freq.Length;
+            chart2.ChartAreas[0].AxisX.Minimum = 0;
+        }
 
         /*
             plotHFTWaveChart
@@ -361,25 +298,6 @@ namespace Project_V3
         */
         public void plotHFTWaveChart()
         {
-           /* this.Text += " - Plotting Data...";
-            int selection = (int)(globalChartSelection.getEnd() - globalChartSelection.getStart());
-            int start = (int)(globalChartSelection.getStart());
-            double[] copiedFreq = globalFreq;
-            // Save the points for the windowed data
-            // This is incase the user selects a new point.
-            globalWindowedSelection.setStart(globalChartSelection.getStart());
-            globalWindowedSelection.setEnd(globalChartSelection.getEnd());
-            //globalAmp = fourier.newDFTFunc(copiedFreq, selection);
-            globalAmp = fourier.threadDFTFunc(copiedFreq, selection, threads);
-            //globalAmp = fourier.getAmplitudes(copiedFreq, selection);
-            chart1.Series[0].Points.Clear();
-            for (int i = 0; i < globalAmp.Length; i++)
-            { chart1.Series["DFT"].Points.AddXY(i, globalAmp[i]); }
-            filterAudio.Enabled = true;
-            chart1.ChartAreas[0].AxisX.Minimum = 0;
-            filterAudio.Enabled = true;
-            this.Text = globalFilePath;
-            this.Text += "*";*/
 
             int selection = (int)(globalChartSelection.getEnd() - globalChartSelection.getStart());
             int start = (int)(globalChartSelection.getStart());
@@ -438,6 +356,7 @@ namespace Project_V3
             chart1.ChartAreas[0].AxisX.Minimum = 0;
         }
 
+        //User clicks on the Freq Domain chart
         private void chart1_Click(object sender, EventArgs e)
         {
             double dataStart = chart1.ChartAreas[0].CursorX.SelectionStart;
@@ -453,13 +372,9 @@ namespace Project_V3
                 globalHFTChartSelection.setEnd(dataStart);
             }
         }
+        //User clicks on the time domain chart
         private void chart2_Click(object sender, EventArgs e)
         {
-
-           /* chart2.ChartAreas[0].CursorX.IsUserEnabled = true;
-            chart2.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
-            chart2.ChartAreas[0].AxisX.ScaleView.Zoomable = false;*/
-            //chart2.ChartAreas[0].AxisX.ScrollBar.IsPositionedInside = true;
             double dataStart = chart2.ChartAreas[0].CursorX.SelectionStart;
             double dataEnd = chart2.ChartAreas[0].CursorX.SelectionEnd;
             startLabel.Text = "Start: " + dataStart;
@@ -480,6 +395,9 @@ namespace Project_V3
             }
         }
 
+        #endregion
+        
+        #region MenuBar
         /*
             FreqWaveChart_Copy
             Purpose:
@@ -500,11 +418,6 @@ namespace Project_V3
             globalCopyPoints.setStart(globalChartSelection.getStart());
             globalCopyPoints.setEnd(globalChartSelection.getEnd());
             return copyArray;
-        }
-        
-        public static void rev()
-        {
-            
         }
 
         /*
@@ -576,6 +489,11 @@ namespace Project_V3
             return copiedData.ToArray();
         }
 
+        /*
+           FreqWaveChart_Del
+           Purpose:
+               This function is to delete the entire wav 
+       */
         public void FreqWaveChart_Del()
         {
             List<double> list = new List<double>(globalFreq);
@@ -587,7 +505,198 @@ namespace Project_V3
             globalWavHead.updateSubChunk2(globalFreq.Length * globalWavHead.BlockAlign);
             lengthOfData.Value = globalFreq.Length;
         }
+        #endregion
 
+        #region ViewSubMenu
+        /*
+           btnView_Click
+           Purpose:
+               This function lets you show the toggle the View subpanel which lets you
+                switch from select to zoom mode.
+       */
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            showSubMenu(panelView);
+            pnlNav.Height = btnView.Height;
+            pnlNav.Top = btnView.Top;
+            pnlNav.Left = btnView.Left;
+            btnView.BackColor = Color.FromArgb(46, 51, 73);
+        }
+        /*
+           btnZoom_Click
+           Purpose:
+               This function lets you zoom in on the time domain.
+       */
+        private void btnZoom_Click(object sender, EventArgs e)
+        {
+            pnlNav.Height = btnView.Height;
+            pnlNav.Top = btnView.Top;
+            pnlNav.Left = btnView.Left;
+            btnView.BackColor = Color.FromArgb(46, 51, 73);
+            // Turns on chart zooming
+            chart2.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+            chart1.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+            chart1.MouseWheel += chart1_MouseWheel;
+            chart2.MouseWheel += chart2_MouseWheel;
+        }
+        /*
+           chart2_MouseWheel
+           Purpose:
+               This function lets you zoom in on the time domain with a the mouse wheel.
+       */
+        private void chart2_MouseWheel(object sender, MouseEventArgs e)
+        {
+            var chart = (Chart)sender;
+            var xAxis = chart.ChartAreas[0].AxisX;
+            var yAxis = chart.ChartAreas[0].AxisY;
+
+            try
+            {
+                if (e.Delta < 0) // Scrolled down.
+                {
+                    xAxis.ScaleView.ZoomReset();
+                    yAxis.ScaleView.ZoomReset();
+                }
+                else if (e.Delta > 0) // Scrolled up.
+                {
+                    var xMin = xAxis.ScaleView.ViewMinimum;
+                    var xMax = xAxis.ScaleView.ViewMaximum;
+                    var yMin = yAxis.ScaleView.ViewMinimum;
+                    var yMax = yAxis.ScaleView.ViewMaximum;
+
+                    var posXStart = xAxis.PixelPositionToValue(e.Location.X) - (xMax - xMin) / 4;
+                    var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
+                    var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - (yMax - yMin) / 4;
+                    var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + (yMax - yMin) / 4;
+
+                    xAxis.ScaleView.Zoom(posXStart, posXFinish);
+                    yAxis.ScaleView.Zoom(posYStart, posYFinish);
+                }
+            }
+            catch { }
+        }
+        private void chart1_MouseWheel(object sender, MouseEventArgs e)
+        {
+            var chart = (Chart)sender;
+            var xAxis = chart.ChartAreas[0].AxisX;
+            var yAxis = chart.ChartAreas[0].AxisY;
+
+            try
+            {
+                if (e.Delta < 0) // Scrolled down.
+                {
+                    xAxis.ScaleView.ZoomReset();
+                    yAxis.ScaleView.ZoomReset();
+                }
+                else if (e.Delta > 0) // Scrolled up.
+                {
+                    var xMin = xAxis.ScaleView.ViewMinimum;
+                    var xMax = xAxis.ScaleView.ViewMaximum;
+                    var yMin = yAxis.ScaleView.ViewMinimum;
+                    var yMax = yAxis.ScaleView.ViewMaximum;
+
+                    var posXStart = xAxis.PixelPositionToValue(e.Location.X) - (xMax - xMin) / 4;
+                    var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
+                    var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - (yMax - yMin) / 4;
+                    var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + (yMax - yMin) / 4;
+
+                    xAxis.ScaleView.Zoom(posXStart, posXFinish);
+                    yAxis.ScaleView.Zoom(posYStart, posYFinish);
+                }
+            }
+            catch { }
+        }
+        /*
+           btnSelect_Click
+           Purpose:
+               This function lets you select any part of the wave.
+       */
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            pnlNav.Height = btnView.Height;
+            pnlNav.Top = btnView.Top;
+            pnlNav.Left = btnView.Left;
+            btnView.BackColor = Color.FromArgb(46, 51, 73);
+            // Turns off chart zooming
+            chart2.ChartAreas[0].AxisX.ScaleView.Zoomable = false;
+            chart1.ChartAreas[0].AxisX.ScaleView.Zoomable = false;
+        }
+        #endregion
+
+        #region DataSubMenu
+        /*
+           btnData_Click
+           Purpose:
+               This function lets you show the toggle the Data subpanel which lets you
+                manipulate the wav file data.
+       */
+        private void btnData_Click(object sender, EventArgs e)
+        {
+            showSubMenu(panelData);
+            pnlNav.Height = btnData.Height;
+            pnlNav.Top = btnData.Top;
+            pnlNav.Left = btnData.Left;
+            btnData.BackColor = Color.FromArgb(46, 51, 73);
+        }
+        /*
+           btnClear_Click
+           Purpose:
+               This function lets you clear all the data in the graph.
+       */
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            this.Text += " - Clearing...";
+            pnlNav.Height = btnData.Height;
+            pnlNav.Top = btnData.Top;
+            pnlNav.Left = btnData.Left;
+            btnData.BackColor = Color.FromArgb(46, 51, 73);
+            globalFreq = new double[1];
+            plotFreqWaveChart(globalFreq);
+            lengthOfData.Value = globalFreq.Length;
+            chart2.ChartAreas[0].AxisX.Minimum = 0;
+            this.Text = globalFilePath;
+            this.Text += "*";
+        }
+        /*
+           btnDFT_Click
+           Purpose:
+               This function lets you perform DFT on the wav.
+       */
+        private void btnDFT_Click(object sender, EventArgs e)
+        {
+            this.Text += " - Performing DFT...";
+            pnlNav.Height = btnData.Height;
+            pnlNav.Top = btnData.Top;
+            pnlNav.Left = btnData.Left;
+            btnData.BackColor = Color.FromArgb(46, 51, 73);
+            plotHFTWaveChart();
+            this.Text = globalFilePath;
+            this.Text += "*";
+        }
+        /*
+           filterAudio_Click
+           Purpose:
+               Button to call the functions to create the filter. After one
+               has selected the filter point on the frequency domain chart,
+               we can now create a lowpass filter. This function will call
+               creationOfLowpassFilter, convolve and inverse DFT.
+       */
+        private void filterAudio_Click(object sender, EventArgs e)
+        {
+            pnlNav.Height = btnData.Height;
+            pnlNav.Top = btnData.Top;
+            pnlNav.Left = btnData.Left;
+            btnData.BackColor = Color.FromArgb(46, 51, 73);
+            // This is where we will filter
+            // get the selection of the frequency to filter from the audio file
+            this.Text += " - Filtering...";
+            Complex[] filter = creationOfLowpassFilter(globalAmp);
+            convolve(fourier.invDFT(filter, filter.Length), globalFreq);
+            plotFreqWaveChart(globalFreq);
+            plotHFTWaveChart();
+            this.Text = globalFilePath;
+            this.Text += "*";
+        }
         /*
            creationOfLowpassFilter
            Purpose:
@@ -664,166 +773,8 @@ namespace Project_V3
             globalFreq = newSignal; // setup the new signal
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-        #region ViewSubMenu
-        private void btnView_Click(object sender, EventArgs e)
-        {
-            showSubMenu(panelView);
-            pnlNav.Height = btnView.Height;
-            pnlNav.Top = btnView.Top;
-            pnlNav.Left = btnView.Left;
-            btnView.BackColor = Color.FromArgb(46, 51, 73);
-        }
-
-        private void btnZoom_Click(object sender, EventArgs e)
-        {
-            pnlNav.Height = btnView.Height;
-            pnlNav.Top = btnView.Top;
-            pnlNav.Left = btnView.Left;
-            btnView.BackColor = Color.FromArgb(46, 51, 73);
-            // Turns on chart zooming
-            chart2.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
-            chart1.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
-            chart1.MouseWheel += chart1_MouseWheel;
-            chart2.MouseWheel += chart2_MouseWheel;
-        }
-        private void chart2_MouseWheel(object sender, MouseEventArgs e)
-        {
-            var chart = (Chart)sender;
-            var xAxis = chart.ChartAreas[0].AxisX;
-            var yAxis = chart.ChartAreas[0].AxisY;
-
-            try
-            {
-                if (e.Delta < 0) // Scrolled down.
-                {
-                    xAxis.ScaleView.ZoomReset();
-                    yAxis.ScaleView.ZoomReset();
-                }
-                else if (e.Delta > 0) // Scrolled up.
-                {
-                    var xMin = xAxis.ScaleView.ViewMinimum;
-                    var xMax = xAxis.ScaleView.ViewMaximum;
-                    var yMin = yAxis.ScaleView.ViewMinimum;
-                    var yMax = yAxis.ScaleView.ViewMaximum;
-
-                    var posXStart = xAxis.PixelPositionToValue(e.Location.X) - (xMax - xMin) / 4;
-                    var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
-                    var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - (yMax - yMin) / 4;
-                    var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + (yMax - yMin) / 4;
-
-                    xAxis.ScaleView.Zoom(posXStart, posXFinish);
-                    yAxis.ScaleView.Zoom(posYStart, posYFinish);
-                }
-            }
-            catch { }
-        }
-        private void chart1_MouseWheel(object sender, MouseEventArgs e)
-        {
-            var chart = (Chart)sender;
-            var xAxis = chart.ChartAreas[0].AxisX;
-            var yAxis = chart.ChartAreas[0].AxisY;
-
-            try
-            {
-                if (e.Delta < 0) // Scrolled down.
-                {
-                    xAxis.ScaleView.ZoomReset();
-                    yAxis.ScaleView.ZoomReset();
-                }
-                else if (e.Delta > 0) // Scrolled up.
-                {
-                    var xMin = xAxis.ScaleView.ViewMinimum;
-                    var xMax = xAxis.ScaleView.ViewMaximum;
-                    var yMin = yAxis.ScaleView.ViewMinimum;
-                    var yMax = yAxis.ScaleView.ViewMaximum;
-
-                    var posXStart = xAxis.PixelPositionToValue(e.Location.X) - (xMax - xMin) / 4;
-                    var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
-                    var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - (yMax - yMin) / 4;
-                    var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + (yMax - yMin) / 4;
-
-                    xAxis.ScaleView.Zoom(posXStart, posXFinish);
-                    yAxis.ScaleView.Zoom(posYStart, posYFinish);
-                }
-            }
-            catch { }
-        }
-        private void btnSelect_Click(object sender, EventArgs e)
-        {
-            pnlNav.Height = btnView.Height;
-            pnlNav.Top = btnView.Top;
-            pnlNav.Left = btnView.Left;
-            btnView.BackColor = Color.FromArgb(46, 51, 73);
-            // Turns off chart zooming
-            chart2.ChartAreas[0].AxisX.ScaleView.Zoomable = false;
-            chart1.ChartAreas[0].AxisX.ScaleView.Zoomable = false;
-        }
         #endregion
-        #region DataSubMenu
-        private void btnData_Click(object sender, EventArgs e)
-        {
-            showSubMenu(panelData);
-            pnlNav.Height = btnData.Height;
-            pnlNav.Top = btnData.Top;
-            pnlNav.Left = btnData.Left;
-            btnData.BackColor = Color.FromArgb(46, 51, 73);
-        }
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            this.Text += " - Clearing...";
-            pnlNav.Height = btnData.Height;
-            pnlNav.Top = btnData.Top;
-            pnlNav.Left = btnData.Left;
-            btnData.BackColor = Color.FromArgb(46, 51, 73);
-            globalFreq = new double[1];
-            plotFreqWaveChart(globalFreq);
-            lengthOfData.Value = globalFreq.Length;
-            chart2.ChartAreas[0].AxisX.Minimum = 0;
-            this.Text = globalFilePath;
-            this.Text += "*";
-        }
-
-        private void btnDFT_Click(object sender, EventArgs e)
-        {
-            this.Text += " - Performing DFT...";
-            pnlNav.Height = btnData.Height;
-            pnlNav.Top = btnData.Top;
-            pnlNav.Left = btnData.Left;
-            btnData.BackColor = Color.FromArgb(46, 51, 73);
-            plotHFTWaveChart();
-            this.Text = globalFilePath;
-            this.Text += "*";
-        }
-        /*
-           filterAudio_Click
-           Purpose:
-               Button to call the functions to create the filter. After one
-               has selected the filter point on the frequency domain chart,
-               we can now create a lowpass filter. This function will call
-               creationOfLowpassFilter, convolve and inverse DFT.
-       */
-        private void filterAudio_Click(object sender, EventArgs e)
-        {
-            pnlNav.Height = btnData.Height;
-            pnlNav.Top = btnData.Top;
-            pnlNav.Left = btnData.Left;
-            btnData.BackColor = Color.FromArgb(46, 51, 73);
-            // This is where we will filter
-            // get the selection of the frequency to filter from the audio file
-            this.Text += " - Filtering...";
-            Complex[] filter = creationOfLowpassFilter(globalAmp);
-            convolve(fourier.invDFT(filter, filter.Length), globalFreq);
-            plotFreqWaveChart(globalFreq);
-            plotHFTWaveChart();
-            this.Text = globalFilePath;
-            this.Text += "*";
-        }
-
-        #endregion
+ 
         #region MediaSubMenu
         private void btnMedia_Click(object sender, EventArgs e)
         {
@@ -901,6 +852,7 @@ namespace Project_V3
             btnMedia.BackColor = Color.FromArgb(46, 51, 73);
         }
         #endregion
+        
         #region WindowsSubMenu
         private void btnWindow_Click(object sender, EventArgs e)
         {
@@ -949,6 +901,7 @@ namespace Project_V3
             this.Text += "*";
         }
         #endregion
+        
         #region EditWave
         private void btnEdit_Click(object sender, EventArgs e)
         {
@@ -984,6 +937,7 @@ namespace Project_V3
             this.Text += "*";
         }
         #endregion
+        
         #region Sample Rates
         private void btnSampleRate_Click(object sender, EventArgs e)
         {
@@ -1014,6 +968,7 @@ namespace Project_V3
             this.Text += "*";
         }
         #endregion
+        
         #region Threads
         private void btnThreads_Click(object sender, EventArgs e)
         {
@@ -1040,6 +995,7 @@ namespace Project_V3
             threads = 4;
         }
         #endregion
+        
         #region LeaveEvents
         private void btnView_Leave(object sender, EventArgs e)
         {

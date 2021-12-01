@@ -119,7 +119,6 @@
             chartArea1.AxisX.MajorGrid.Enabled = false;
             chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.White;
             chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX.MinorTickMark.Enabled = true;
             chartArea1.AxisX.MinorTickMark.LineColor = System.Drawing.Color.White;
             chartArea1.AxisX.ScaleView.SmallScrollSizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
             chartArea1.AxisX.ScaleView.Zoomable = false;
@@ -128,7 +127,6 @@
             chartArea1.AxisY.MajorGrid.Enabled = false;
             chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.White;
             chartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY.MinorTickMark.Enabled = true;
             chartArea1.AxisY.MinorTickMark.LineColor = System.Drawing.Color.White;
             chartArea1.BackColor = System.Drawing.Color.Transparent;
             chartArea1.CursorX.IsUserEnabled = true;
@@ -136,7 +134,6 @@
             chartArea1.CursorX.LineColor = System.Drawing.Color.Green;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
-            
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
             legend1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
             legend1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(146)))), ((int)(((byte)(249)))));
@@ -173,7 +170,6 @@
             chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.WhiteSmoke;
             chartArea2.AxisX.MajorTickMark.LineColor = System.Drawing.Color.WhiteSmoke;
             chartArea2.AxisX.MinorGrid.LineColor = System.Drawing.Color.WhiteSmoke;
-            chartArea2.AxisX.MinorTickMark.Enabled = true;
             chartArea2.AxisX.MinorTickMark.LineColor = System.Drawing.Color.WhiteSmoke;
             chartArea2.AxisX.ScaleView.SmallScrollSizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
             chartArea2.AxisX.ScaleView.Zoomable = false;
@@ -182,7 +178,6 @@
             chartArea2.AxisY.MajorGrid.Enabled = false;
             chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.Snow;
             chartArea2.AxisY.MajorTickMark.LineColor = System.Drawing.Color.WhiteSmoke;
-            chartArea2.AxisY.MinorTickMark.Enabled = true;
             chartArea2.AxisY.MinorTickMark.LineColor = System.Drawing.Color.White;
             chartArea2.BackColor = System.Drawing.Color.Transparent;
             chartArea2.BorderWidth = 10;

@@ -7,12 +7,6 @@ using System.Threading.Tasks;
 
 namespace Project_V3
 {
-    // enum of windowing methods
-    public enum WINDOWING { pass, triangle, cosine, blackman }
-    // enum of FX methods
-    public enum EDIT_FX { reverse, normalize, pitchshift }
-    // enum of filtering methods
-    public enum FILTERING { convolution, DFT, IIRLowpass, IIRHighpass }
     class Fourier
     {
         private double[] threadAmplitude;

@@ -339,8 +339,8 @@ namespace Project_V3
                 return; // Error
             setupOutbuffer();
         }
-
         
+        //Pauses the wav being played.
         public void stop_playing() {
             waveOutPause(hndWavOut);
         }
