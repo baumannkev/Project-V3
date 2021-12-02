@@ -14,8 +14,7 @@ namespace Project_V3
         {
 
         }
-        // This transforms into the frequency domain !!! 
-        // 
+        // This transforms into the frequency domain 
         public Complex[] DFT(int N, double[] s)
         {
             double real;
@@ -71,7 +70,7 @@ namespace Project_V3
                 will take in the number of threads specified by the user, and
                 run DFT for that selection on the whole array. This will then 
                 be set to a specific array for that thread number and used 
-                back in the threadDFT funciton to copy the array to the 
+                back in the threadDFT function to copy the array to the 
                 array that will be passed back to the windows form.
             Parameters:
                 s:          Wave data that will be processed

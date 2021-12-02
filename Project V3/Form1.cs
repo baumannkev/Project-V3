@@ -132,7 +132,6 @@ namespace Project_V3
 
             this.panelFreq.BorderStyle = BorderStyle.None;
             this.panelFreq.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelFreq.Width, panelFreq.Height, 20, 20));
-            // Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 1, 1));
             customizeDesign();
 
         }
