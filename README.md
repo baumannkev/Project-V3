@@ -1,6 +1,5 @@
 # Project-V3
 
-# Project-V3
 
 Kevin Baumann
 Pariya Kasaeian
