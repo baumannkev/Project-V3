@@ -4,7 +4,7 @@
 Kevin Baumann
 Pariya Kasaeian
 
-A- Openning the general window
+A- Opening the general window
     1. Click on the start option to run the application.
     2. There are 4 different options on the toolbar on the top left of the main window:
         a) File
