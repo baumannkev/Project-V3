@@ -89,6 +89,9 @@
             this.btnSelect = new System.Windows.Forms.Button();
             this.btnView = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.benchTime = new System.Windows.Forms.Label();
+            this.benchLabel = new System.Windows.Forms.Label();
+            this.numOfThreads = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.panelDFT.SuspendLayout();
@@ -255,9 +258,12 @@
             // panelSamples
             // 
             this.panelSamples.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
+            this.panelSamples.Controls.Add(this.numOfThreads);
+            this.panelSamples.Controls.Add(this.benchTime);
+            this.panelSamples.Controls.Add(this.benchLabel);
             this.panelSamples.Controls.Add(this.panel1);
             this.panelSamples.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelSamples.Location = new System.Drawing.Point(2018, 0);
+            this.panelSamples.Location = new System.Drawing.Point(1497, 0);
             this.panelSamples.Name = "panelSamples";
             this.panelSamples.Size = new System.Drawing.Size(242, 1474);
             this.panelSamples.TabIndex = 15;
@@ -996,8 +1002,45 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.75377F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.24623F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1078, 933);
             this.tableLayoutPanel1.TabIndex = 17;
+            // 
+            // benchTime
+            // 
+            this.benchTime.AutoSize = true;
+            this.benchTime.Dock = System.Windows.Forms.DockStyle.Top;
+            this.benchTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.benchTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(146)))), ((int)(((byte)(249)))));
+            this.benchTime.Location = new System.Drawing.Point(0, 439);
+            this.benchTime.Name = "benchTime";
+            this.benchTime.Size = new System.Drawing.Size(117, 40);
+            this.benchTime.TabIndex = 15;
+            this.benchTime.Text = "Time: ";
+            // 
+            // benchLabel
+            // 
+            this.benchLabel.AutoSize = true;
+            this.benchLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.benchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.benchLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(146)))), ((int)(((byte)(249)))));
+            this.benchLabel.Location = new System.Drawing.Point(0, 399);
+            this.benchLabel.Name = "benchLabel";
+            this.benchLabel.Size = new System.Drawing.Size(247, 40);
+            this.benchLabel.TabIndex = 16;
+            this.benchLabel.Text = "Benchmarking";
+            // 
+            // numOfThreads
+            // 
+            this.numOfThreads.AutoSize = true;
+            this.numOfThreads.Dock = System.Windows.Forms.DockStyle.Top;
+            this.numOfThreads.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numOfThreads.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(146)))), ((int)(((byte)(249)))));
+            this.numOfThreads.Location = new System.Drawing.Point(0, 479);
+            this.numOfThreads.Name = "numOfThreads";
+            this.numOfThreads.Size = new System.Drawing.Size(159, 40);
+            this.numOfThreads.TabIndex = 17;
+            this.numOfThreads.Text = "Threads:";
             // 
             // Form1
             // 
@@ -1006,7 +1049,7 @@
             this.AutoScroll = true;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(2260, 1474);
+            this.ClientSize = new System.Drawing.Size(1739, 1474);
             this.Controls.Add(this.panelFreq);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panelSamples);
@@ -1021,6 +1064,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.panelDFT.ResumeLayout(false);
             this.panelSamples.ResumeLayout(false);
+            this.panelSamples.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lengthOfData)).EndInit();
@@ -1098,5 +1142,8 @@
         private System.Windows.Forms.Button btn11025;
         private System.Windows.Forms.Button btnSampleRate;
         public System.Windows.Forms.Label labelSelected;
+        public System.Windows.Forms.Label benchTime;
+        public System.Windows.Forms.Label benchLabel;
+        public System.Windows.Forms.Label numOfThreads;
     }
 }

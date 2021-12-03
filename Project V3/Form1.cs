@@ -13,6 +13,8 @@ using System.IO;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Threading;
 using System.Media;
+using System.Linq;
+using System.Diagnostics;
 
 namespace Project_V3
 {
@@ -117,6 +119,13 @@ namespace Project_V3
             in the signal, they may select a portion to filter.
         */
         public Windows globalWindowing = new Windows();
+
+        /*
+            stopwatch
+            Class object for timing the threaded and non threaded DFT and using the results 
+            for benchmarking.
+         */
+        Stopwatch stopWatch = new Stopwatch();
 
         public Form1()
         {
@@ -287,7 +296,7 @@ namespace Project_V3
         /*
             plotHFTWaveChart
             Purpose:
-                Plots the frequency domain chart based on the seleciton of the
+                Plots the frequency domain chart based on the selection of the
                 user on the time domain. This will check to see if the
                 selection from the user is greater than half of the maximum 
                 sample size, and if so will minimize the amount of data the 
@@ -297,7 +306,7 @@ namespace Project_V3
         */
         public void plotHFTWaveChart()
         {
-
+            stopWatch.Start();
             int selection = (int)(globalChartSelection.getEnd() - globalChartSelection.getStart());
             int start = (int)(globalChartSelection.getStart());
             // Save the points for the windowed data
@@ -312,6 +321,9 @@ namespace Project_V3
             { chart1.Series["DFT"].Points.AddXY(i, globalAmp[i]); }
             filterAudio.Enabled = true;
             chart1.ChartAreas[0].AxisX.Minimum = 0;
+            stopWatch.Stop();
+            TimeSpan ts = stopWatch.Elapsed;
+            benchTime.Text = "Time: " + ts.Milliseconds + "ms";
         }
 
         /*
@@ -327,6 +339,7 @@ namespace Project_V3
         */
         public void plotHFTWaveChart(String windowType)
         {
+            stopWatch.Start();
             int selection = (int)(globalChartSelection.getEnd() - globalChartSelection.getStart());
             int start = (int)(globalChartSelection.getStart());
             double[] copiedFreq = globalFreq;
@@ -353,6 +366,9 @@ namespace Project_V3
             { chart1.Series["DFT"].Points.AddXY(i, globalAmp[i]); }
             filterAudio.Enabled = true;
             chart1.ChartAreas[0].AxisX.Minimum = 0;
+            stopWatch.Stop();
+            TimeSpan ts = stopWatch.Elapsed;
+            benchTime.Text = "Time: " + ts.Milliseconds + "ms";
         }
 
         //User clicks on the Freq Domain chart
@@ -929,7 +945,7 @@ namespace Project_V3
             this.Text += " - Amplifying...";
             for (int i = 0; i < globalFreq.Length; i++)
             {
-                globalFreq[i] = globalFreq[i] * 1.75;
+                globalFreq[i] = globalFreq[i] * 1.25;
             }
             plotFreqWaveChart(globalFreq);
             this.Text = globalFilePath;
@@ -980,18 +996,22 @@ namespace Project_V3
         private void btnThread1_Click(object sender, EventArgs e)
         {
             threads = 1;
+            numOfThreads.Text = "Threads: " + threads;
         }
         private void btnThread2_Click(object sender, EventArgs e)
         {
             threads = 2;
+            numOfThreads.Text = "Threads: " + threads;
         }
         private void btnThread3_Click(object sender, EventArgs e)
         {
             threads = 3;
+            numOfThreads.Text = "Threads: " + threads;
         }
         private void btnThread4_Click(object sender, EventArgs e)
         {
             threads = 4;
+            numOfThreads.Text = "Threads: " + threads;
         }
         #endregion
         
